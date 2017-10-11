@@ -4,11 +4,18 @@ header('Content-Type: application/json');
 
 include("config.php");
 
-$sql = "Select * from users where username = 'alastairotter' and password = '" . md5("lb309x") . "'";
+$un = $_GET['un'];
+//$pw = md5($_GET['pw']);
+$pw = $_GET['pw'];
+
+//echo $un;
+
+$sql = "Select * from users where username = '$un' and password = '$pw'";
 
     $query = mysqli_query($db, $sql);
 
     $rc = mysqli_num_rows($query);
+    
     
     $rc = json_encode($rc);
     echo $rc;
