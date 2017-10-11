@@ -84,9 +84,9 @@ myApp.run(['$rootScope',function($rootScope){
 				templateUrl : 'pages/logout.html',
 				controller  : 'logoutController'
 			})
-            .when('/municipalities', {
-				templateUrl : 'pages/municipalities.html',
-				controller  : 'municipalitiesController'
+            .when('/list/:section', {
+				templateUrl : 'pages/list.html',
+				controller  : 'listController'
 			});
 	});
 
@@ -173,8 +173,20 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 	}]);
 
 
-    myApp.controller('municipalitiesController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
+    myApp.controller('listController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams) {
 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+            
+            $scope.listSection = $routeParams.section; 
+        
+            // get list
+            console.log("url: " + baseUrl + "api/list.php?section=" + $scope.listSection);
+            $http.get(baseUrl + "api/list.php?section=" + $scope.listSection)
+                    .then( function(data) { 
+                        console.log(data);
+                    });
+        
+            
+            
 
         }]);
