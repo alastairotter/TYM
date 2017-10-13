@@ -18,7 +18,7 @@ myApp.run(['$rootScope',function($rootScope){
                 pw = $cookies.get('password'),
                 fullname = $cookies.get('fullname');
             
-            console.log(fullname);
+
             
             
             // if present
@@ -134,9 +134,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
 	// create the controller and inject Angular's $scope
 	myApp.controller('mainController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
-		console.log($scope.loggedIn);
-//        $scope.loggedIn = false;
-//        $scope.loginError = false;
+		
         auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
         
        
@@ -150,7 +148,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
         
             $http.get(baseUrl + "api/list_front.php")
                 .then( function (data) { 
-                    console.log(data.data);
+                    
                     $scope.frontData = data.data;
                 
                     })
@@ -183,7 +181,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         
 
                         if(data.data[0] === 1) { 
-                            console.log(data);
+                            
                             $cookies.put("username", $scope.username);
                             $cookies.put("password", data.data[1]);
                             $cookies.put("fullname", data.data[2].first_name + " " + data.data[2].last_name);
@@ -236,7 +234,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
         
             $scope.listOrder = function (col) { 
                 $scope.sortCol = col;
-                console.log(col);
+                
             }
             
             // delete item 
@@ -257,7 +255,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             $http.get(baseUrl + "api/list.php?section=" + $scope.listSection)
                     .then( function(data) { 
                         $scope.listData = data.data;
-                        console.log(data.data);
+                       
                         
                     });
         
@@ -324,7 +322,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             // Add promise
             $scope.addPromise = function(mayor, promise, tracked) { 
                 
-                console.log("addPromise");
+                
                 
                 $http.get(baseUrl + "api/addpromise.php?mayor=" + mayor + "&promise=" + promise + "&tracked=" + tracked)
                         .then( function (response) { 
@@ -353,13 +351,12 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
              }
              
              $scope.deleteItem = function () { 
-                console.log($scope.deleteId);
-                console.log($scope.listSection);
+                
                 
                 $http.get(baseUrl + "api/delete.php?section=" + $rootScope.deleteSection + "&id=" + $rootScope.deleteId)
                     .then( function(deletedata) { 
                         $scope.listData = deletedata.data;
-                        console.log(deletedata.data);
+                   
                         if(deletedata.data === "success") { 
                             $location.url("list/" + $rootScope.deleteSection);
                         }
