@@ -1,0 +1,44 @@
+
+
+<div ng-if="listSection=='mayors'" class="add-wrap">
+<div class="header">Add A Mayor</div>
+
+<div class="add-form-wrap">
+<form >
+  <div class="form-group">
+    <label for="exampleInputEmail1">Mayor's Name</label>
+    <input type="text" class="form-control form-control-sm" name="username" aria-describedby="emailHelp" ng-model="name">
+    
+  </div>
+  
+  <div class="form-group">
+    <label>Party</label>
+    <select ng-model="party" class="form-control form-control-sm">
+      <option  ng-repeat="item in parties" value="{{item.id}}">{{item.name}}</option>
+    </select>
+    
+  </div>
+  
+  <div class="form-group">
+    <label>Municipality</label>
+    <select ng-model="municipality" class="form-control form-control-sm">
+      <option>Select a municipality</option>
+      <option ng-repeat="item in municipalities" value="{{item.id}}">{{item.municipality}}</option>
+    </select>
+    
+  </div>
+  
+<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addMayor(name, party, municipality)">Add</button>
+</form>
+   
+   <div>
+       
+     
+   </div>
+    </div> <!-- End form wrap -->
+
+
+
+</div> <!-- End add wrap -->
+

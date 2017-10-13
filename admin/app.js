@@ -54,6 +54,28 @@ myApp.run(['$rootScope',function($rootScope){
 
     }); // End of auth function
 
+
+// Add service to retrieve various options fo form fills
+myApp.service('getData', function () { 
+
+        this.getFormData = function (section, $http, $scope) { 
+                
+                $http.get(baseUrl + "api/list.php?section=" + section)
+                    .then( function(data) { 
+                        
+                    if(section === "municipalities") {     
+                        $scope.municipalities = data.data; 
+                    }
+                    else if(section === "parties") { 
+                        $scope.parties = data.data;
+                    }
+            
+                    });
+            
+            } 
+
+})
+
 	// configure our routes
 	myApp.config(function($routeProvider) {
 		$routeProvider
@@ -87,6 +109,14 @@ myApp.run(['$rootScope',function($rootScope){
             .when('/list/:section', {
 				templateUrl : 'pages/list.html',
 				controller  : 'listController'
+			})
+            .when('/add/:section', {
+				templateUrl : 'pages/add.html',
+				controller  : 'addController'
+			})
+            .when('/staging', {
+				templateUrl : 'pages/staging.html',
+				controller  : 'stagingController'
 			});
 	});
 
@@ -177,16 +207,98 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
+            
             $scope.listSection = $routeParams.section; 
+            
+            if($scope.listSection === "mayors") { 
+                $scope.sortCol = "name";
+            }
         
+            $scope.listOrder = function (col) { 
+                $scope.sortCol = col;
+                console.log(col);
+            }
+            
+            // delete item 
+            $scope.delete = function (id, section) { 
+               
+//                $scope.deleteDialog = true;
+                $rootScope.deleteId = id; 
+                $rootScope.deleteSection = section; 
+                $location.url("staging");
+                
+            }
+            
+           
+            
+            
             // get list
-            console.log("url: " + baseUrl + "api/list.php?section=" + $scope.listSection);
+            
             $http.get(baseUrl + "api/list.php?section=" + $scope.listSection)
                     .then( function(data) { 
-                        console.log(data);
+                        $scope.listData = data.data;
+                        console.log(data.data);
+                        
                     });
         
             
             
 
+        }]);
+
+        myApp.controller('addController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
+
+            $scope.name; 
+            auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+            
+            $scope.listSection = $routeParams.section; 
+            
+            getData.getFormData("municipalities", $http, $scope); 
+            getData.getFormData("parties", $http, $scope);
+            
+            $scope.party="placeholder";
+        
+            $scope.addMayor = function(name, party, municipality) { 
+                
+                $http.get(baseUrl + "api/addmayor.php?name=" + name + "&party=" + party + "&municipality=" + municipality)
+                        .then( function (response) { 
+                            if(response.data === "success") { 
+                                $location.url("list/mayors");
+                            }
+                        });
+                
+                
+            }
+            
+        
+            
+            
+
+        }]);
+
+        myApp.controller('stagingController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
+            
+            $scope.deleteDialog = true;
+            console.log($rootScope.deleteId);
+            console.log($rootScope.deleteSection);
+            
+             $scope.cancelDelete = function () { 
+                $scope.deleteDialog = false;
+             }
+             
+             $scope.deleteItem = function () { 
+                console.log($scope.deleteId);
+                console.log($scope.listSection);
+                
+                $http.get(baseUrl + "api/delete.php?section=" + $rootScope.deleteSection + "&id=" + $rootScope.deleteId)
+                    .then( function(deletedata) { 
+                        $scope.listData = deletedata.data;
+                        console.log(deletedata.data);
+                        if(deletedata.data === "success") { 
+                            $location.url("list/" + $rootScope.deleteSection);
+                        }
+                    });
+             }
+        
+            
         }]);

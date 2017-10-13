@@ -1,1 +1,112 @@
-List items {{listSection}}
+
+ 
+
+   <div class="header">
+    <div class="header-inner">
+        {{listSection}}
+    </div>
+    <div class="header-inner header-inner-right">
+     <div class="header-inner-right-1">
+     <input type="text" class="form-control form-control-sm" placeholder="Type to filter" ng-model="listFilter">
+      </div>
+      <div class="header-inner-right-2">
+       <a href="#!/add/{{listSection}}" ng-if="listSection=='municipalities'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add municipality</a>
+       <a href="#!/add/{{listSection}}" ng-if="listSection=='mayors'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add mayor</a>
+        <a href="#!/add/{{listSection}}" ng-if="listSection=='parties'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add party</a>
+        </div>
+        </div>
+    <div class="clear"></div>
+</div>
+
+<table class="table table-striped" ng-if="listSection=='municipalities'">
+  <thead class="thead thead-custom">
+
+    <tr>
+     
+      <th>Municipality</th>
+      <th>Code</th>
+      <th>Province</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in listData">
+        <td>{{item.municipality}}</td>
+        <td>{{item.code}}</td>
+        <td>{{item.province}}</td>
+        
+    </tr>
+    
+  </tbody>
+</table>
+
+
+<!-- parties -->
+
+<table class="table table-striped" ng-if="listSection=='parties'">
+  <thead class="thead-custom">
+
+    <tr>
+     
+      <th>Name</th>
+      <th>Abbreviation</th>
+      <th>Logo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in listData">
+        <td>{{item.name}}</td>
+        <td>{{item.abbreviation}}</td>
+        <td>{{item.logo}}</td>
+        
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+<!-- mayors -->
+<table class="table table-striped header-fixed" ng-if="listSection=='mayors'">
+  <thead class="thead-custom">
+
+    <tr>
+     
+        <th class="sortable" ng-click="listOrder('name')">Name</th>
+        <th class="sortable" ng-click="listOrder('municipality_name')">Municipality</th>
+      <th class="sortable" ng-click="listOrder('party_name')">Party</th>
+      <th class="sortable" ng-click="listOrder('coalition')">Coalition</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+        <td>{{item.name}}</td>
+        <td>{{item.municipality_name}}</td>
+        <td>{{item.party_name}}</td>
+         <td>{{item.coalition}}</td>
+         <td class="operations">
+         <a ng-click="delete(item.id,listSection)" class="trash" >
+             <i class="fa fa-trash-o" aria-hidden="true"></i>
+             </a> &nbsp; 
+             
+        <a href="" class="edit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+             </a>
+             </td>
+        
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+<script>
+    $('table').stickyTableHeaders();
+</script>

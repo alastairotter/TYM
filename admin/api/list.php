@@ -21,7 +21,22 @@ $sql = "Select * from $section";
 
     while($row = mysqli_fetch_assoc($query)) {
 
-           $results[] = $row; 
+           
+        //party details
+        $q = "select * from parties where id = " . $row['party'];  
+        $q = mysqli_query($db, $q);
+        $q = mysqli_fetch_assoc($q);
+        $row['party_name'] = $q['name'];
+        $row['party_abbr'] = $q['abbreviation'];
+        
+        //municipal details
+        $q = "select * from municipalities where id = " . $row['municipality'];  
+        $q = mysqli_query($db, $q);
+        $q = mysqli_fetch_assoc($q);
+        $row['municipality_name'] = $q['municipality'];
+        $row['municipality_province'] = $q['province'];
+        
+        $results[] = $row;
 
     }
     echo json_encode($results);
