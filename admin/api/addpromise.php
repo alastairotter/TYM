@@ -6,12 +6,13 @@ include("config.php");
 
 
 
-$name = $_GET["name"]; 
-$name = addslashes($name);
-$party = $_GET["party"]; 
-$municipality = $_GET["municipality"]; 
+$mayor = $_GET["mayor"]; 
+$promise = $_GET['promise'];
+$promise = addslashes($promise);
+$tracked = $_GET["tracked"];
 
-$sql = "INSERT INTO mayors (name, party, municipality) VALUES ('$name', '$party', '$municipality')";
+
+$sql = "INSERT INTO promises (mayor, promise, tracked) VALUES ('$mayor', '$promise', '$tracked')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

@@ -6,12 +6,11 @@ include("config.php");
 
 
 
-$name = $_GET["name"]; 
-$name = addslashes($name);
-$party = $_GET["party"]; 
-$municipality = $_GET["municipality"]; 
+$category = $_GET["category"]; 
+$category = addslashes($category);
 
-$sql = "INSERT INTO mayors (name, party, municipality) VALUES ('$name', '$party', '$municipality')";
+
+$sql = "INSERT INTO categories (category) VALUES ('$category')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

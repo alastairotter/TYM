@@ -1,4 +1,6 @@
 
+<!-- Mayors -->
+
 
 <div ng-if="listSection=='mayors'" class="add-wrap">
 <div class="header">Add A Mayor</div>
@@ -37,8 +39,142 @@
      
    </div>
     </div> <!-- End form wrap -->
+</div> <!-- End add wrap -->
 
 
 
+
+<!-- Parties -->
+
+
+<div ng-if="listSection=='parties'" class="add-wrap">
+<div class="header">Add A Party</div>
+
+<div class="add-form-wrap">
+<form >
+  <div class="form-group">
+    <label for="exampleInputEmail1">Party Name</label>
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="party_name">
+    
+  </div>
+  
+  <div class="form-group">
+    <label for="exampleInputEmail1">Party Abbreviation</label>
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="abbreviation">
+    
+  </div>
+  
+  
+  
+  
+  
+<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party_name, abbreviation)">Add</button>
+</form>
+   
+   <div>
+       
+     
+   </div>
+    </div> <!-- End form wrap -->
+</div> <!-- End add wrap -->
+
+
+
+
+
+<!-- Categories -->
+
+
+<div ng-if="listSection=='categories'" class="add-wrap">
+<div class="header">Add A Category</div>
+
+<div class="add-form-wrap">
+<form >
+  <div class="form-group">
+    <label for="exampleInputEmail1">Category</label>
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="category">
+    
+  </div>
+  
+<!--
+  <div class="form-group">
+    <label for="exampleInputEmail1">Party Abbreviation</label>
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="abbreviation">
+    
+  </div>
+-->
+  
+  
+  
+  
+  
+<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addCategory(category)">Add</button>
+</form>
+   
+   <div>
+       
+     
+   </div>
+    </div> <!-- End form wrap -->
+</div> <!-- End add wrap -->
+
+
+
+
+
+<!-- Promises -->
+
+
+<div ng-if="listSection=='promises'" class="add-wrap">
+<div class="header">Add A Promise</div>
+
+<div class="add-form-wrap">
+<form >
+  <div class="form-group">
+    <label>Mayor</label>
+    <select ng-model="mayor" class="form-control form-control-sm">
+      <option  ng-repeat="item in mayors" value="{{item.id}}">{{item.name}}</option>
+    </select>
+    
+  </div>
+  
+  <div class="form-group">
+    <label>Promise</label>
+      <textarea class="form-control form-control-sm" ng-model="promise"></textarea>
+    
+  </div>
+  
+  <div class="form-group">
+    <label>Tracked</label>
+    <select ng-model="tracked" class="form-control form-control-sm">
+      <option  value="No">No</option>
+      <option value="Yes">Yes</option>
+    </select>
+    
+  </div>
+  
+<!--
+  <div class="form-group">
+    <label for="exampleInputEmail1">Party Abbreviation</label>
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="abbreviation">
+    
+  </div>
+-->
+  
+  
+  
+  
+  
+<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addPromise(mayor, promise, tracked)">Add</button>
+</form>
+   
+   <div>
+       
+     
+   </div>
+    </div> <!-- End form wrap -->
 </div> <!-- End add wrap -->
 

@@ -69,6 +69,9 @@ myApp.service('getData', function () {
                     else if(section === "parties") { 
                         $scope.parties = data.data;
                     }
+                    else if(section === "mayors") { 
+                        $scope.mayors = data.data;
+                    }
             
                     });
             
@@ -117,6 +120,10 @@ myApp.service('getData', function () {
             .when('/staging', {
 				templateUrl : 'pages/staging.html',
 				controller  : 'stagingController'
+			})
+            .when('/front', {
+				templateUrl : 'pages/front.html',
+				controller  : 'frontController'
 			});
 	});
 
@@ -136,6 +143,19 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
         
 	}]);
+
+    myApp.controller('frontController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
+
+            auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+        
+            $http.get(baseUrl + "api/list_front.php")
+                .then( function (data) { 
+                    console.log(data.data);
+                    $scope.frontData = data.data;
+                
+                    })
+
+        }]);
 
 	myApp.controller('aboutController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
 		
@@ -255,9 +275,12 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             getData.getFormData("municipalities", $http, $scope); 
             getData.getFormData("parties", $http, $scope);
+            getData.getFormData("mayors", $http, $scope);
             
             $scope.party="placeholder";
         
+            
+//            Add Mayor
             $scope.addMayor = function(name, party, municipality) { 
                 
                 $http.get(baseUrl + "api/addmayor.php?name=" + name + "&party=" + party + "&municipality=" + municipality)
@@ -270,6 +293,48 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
             }
             
+            // Add party
+            $scope.addParty = function(name, abbreviation) { 
+                
+                $http.get(baseUrl + "api/addparty.php?name=" + name + "&abbreviation=" + abbreviation)
+                        .then( function (response) { 
+                            if(response.data === "success") { 
+                                $location.url("list/parties");
+                            }
+                        });
+                
+                
+            }
+            
+            
+            // Add category
+            $scope.addCategory = function(category) { 
+                
+                $http.get(baseUrl + "api/addcategory.php?category=" + category)
+                        .then( function (response) { 
+                            if(response.data === "success") { 
+                                $location.url("list/categories");
+                            }
+                        });
+                
+                
+            }
+            
+            
+            // Add promise
+            $scope.addPromise = function(mayor, promise, tracked) { 
+                
+                console.log("addPromise");
+                
+                $http.get(baseUrl + "api/addpromise.php?mayor=" + mayor + "&promise=" + promise + "&tracked=" + tracked)
+                        .then( function (response) { 
+                            if(response.data === "success") { 
+                                $location.url("list/promises");
+                            }
+                        });
+                
+                
+            }
         
             
             
@@ -279,11 +344,12 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
         myApp.controller('stagingController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
             
             $scope.deleteDialog = true;
-            console.log($rootScope.deleteId);
-            console.log($rootScope.deleteSection);
+          
             
              $scope.cancelDelete = function () { 
                 $scope.deleteDialog = false;
+                 $location.url("list/" + $rootScope.deleteSection);
+                 
              }
              
              $scope.deleteItem = function () { 

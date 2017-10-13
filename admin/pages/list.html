@@ -13,6 +13,8 @@
        <a href="#!/add/{{listSection}}" ng-if="listSection=='municipalities'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add municipality</a>
        <a href="#!/add/{{listSection}}" ng-if="listSection=='mayors'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add mayor</a>
         <a href="#!/add/{{listSection}}" ng-if="listSection=='parties'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add party</a>
+        <a href="#!/add/{{listSection}}" ng-if="listSection=='categories'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add category</a>
+        <a href="#!/add/{{listSection}}" ng-if="listSection=='promises'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add promise</a>
         </div>
         </div>
     <div class="clear"></div>
@@ -23,16 +25,27 @@
 
     <tr>
      
-      <th>Municipality</th>
-      <th>Code</th>
-      <th>Province</th>
+      <th class="sortable" ng-click="listOrder('municipality')">Municipality</th>
+      <th class="sortable" ng-click="listOrder('code')">Code</th>
+      <th class="sortable" ng-click="listOrder('province')">Province</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData">
+    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
         <td>{{item.municipality}}</td>
         <td>{{item.code}}</td>
         <td>{{item.province}}</td>
+        
+         <td class="operations">
+         <a ng-click="delete(item.id,listSection)" class="trash" >
+             <i class="fa fa-trash-o" aria-hidden="true"></i>
+             </a> &nbsp; 
+             
+        <a href="" class="edit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+             </a>
+             </td>
         
     </tr>
     
@@ -47,16 +60,27 @@
 
     <tr>
      
-      <th>Name</th>
-      <th>Abbreviation</th>
-      <th>Logo</th>
+      <th class="sortable" ng-click="listOrder('name')">Name</th>
+      <th class="sortable" ng-click="listOrder('abbreviation')">Abbreviation</th>
+<!--      <th>Logo</th>-->
+   <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData">
+    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
         <td>{{item.name}}</td>
         <td>{{item.abbreviation}}</td>
-        <td>{{item.logo}}</td>
+<!--        <td>{{item.logo}}</td>-->
+       
+        <td class="operations">
+         <a ng-click="delete(item.id,listSection)" class="trash" >
+             <i class="fa fa-trash-o" aria-hidden="true"></i>
+             </a> &nbsp; 
+             
+        <a href="" class="edit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+             </a>
+             </td>
         
     </tr>
     
@@ -79,7 +103,7 @@
         <th class="sortable" ng-click="listOrder('name')">Name</th>
         <th class="sortable" ng-click="listOrder('municipality_name')">Municipality</th>
       <th class="sortable" ng-click="listOrder('party_name')">Party</th>
-      <th class="sortable" ng-click="listOrder('coalition')">Coalition</th>
+<!--      <th class="sortable" ng-click="listOrder('coalition')">Coalition</th>-->
       <th></th>
     </tr>
   </thead>
@@ -88,7 +112,39 @@
         <td>{{item.name}}</td>
         <td>{{item.municipality_name}}</td>
         <td>{{item.party_name}}</td>
-         <td>{{item.coalition}}</td>
+<!--         <td>{{item.coalition}}</td>-->
+         <td class="operations">
+         <a ng-click="delete(item.id,listSection)" class="trash" >
+             <i class="fa fa-trash-o" aria-hidden="true"></i>
+             </a> &nbsp; 
+             
+        <a href="" class="edit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+             </a>
+             </td>
+        
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+<!-- categories -->
+<table class="table table-striped header-fixed" ng-if="listSection=='categories'">
+  <thead class="thead-custom">
+
+    <tr>
+     
+        <th class="sortable" ng-click="listOrder('name')">Category</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+        <td>{{item.category}}</td>
+        
          <td class="operations">
          <a ng-click="delete(item.id,listSection)" class="trash" >
              <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -107,6 +163,41 @@
 
 
 
-<script>
-    $('table').stickyTableHeaders();
-</script>
+
+<!-- promises -->
+<table class="table table-striped header-fixed" ng-if="listSection=='promises'">
+  <thead class="thead-custom">
+
+    <tr>
+     
+        <th class="sortable" ng-click="listOrder('mayor')">Mayor</th>
+        <th>Promise</th>
+        <th class="sortable" ng-click="listOrder('tracked')">Tracked</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+       <td>{{item.mayor_name}}</td>
+        <td>{{item.promise}}</td>
+        <td>{{item.tracked}}</td>
+        
+         <td class="operations">
+         <a ng-click="delete(item.id,listSection)" class="trash" >
+             <i class="fa fa-trash-o" aria-hidden="true"></i>
+             </a> &nbsp; 
+             
+        <a href="" class="edit">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+             </a>
+             </td>
+        
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+

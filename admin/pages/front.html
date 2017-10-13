@@ -1,0 +1,46 @@
+<div class="front-wrap">
+This is a rough sample front end. These two elements may not be on the same page ormay workentirely differentlydepending on what we decide. The "Find your mayor" input just filters the results below for now. This is probably not how it work in the final version. It's jsut a sample. <p>
+
+<div class="front-search">
+<div class="form-group">
+<label>Find your mayor</label>
+<input type="text" class="form-control form-control-sm" placeholder="Type to search" ng-model="searchData">
+    </div>
+    </div>
+    
+<!--    
+   auto-complete script
+   http://vickramravichandran.github.io/angular-auto-complete/ -->
+    
+    <p> The cards below are just an example of how the mayors may be presented if someone wants to browse the list. There are various ways to do this when we look at the front end we can make some decisions about it. </p>
+    
+    <div class="listing">
+        
+        <div class="front-card" ng-repeat="item in frontData | filter: searchData">
+            
+            <div class="front-left">
+            <img src="images/avatar2.png" width="100"></div>  
+            
+             <div class="front-right"> 
+            <div class="name">
+                {{item.name}}
+            </div>
+            <div>
+                {{item.party_name}}
+            </div>
+            <div>
+                {{item.municipality_name}}
+            </div>
+            <div>
+                Tracked promises: {{item.tracked_promises}}
+            </div>
+            <div>
+                Untracked promises: {{item.untracked_promises}}
+            </div>
+            </div>
+           <div class="clear"></div> 
+        </div>
+        
+    </div>
+
+</div>

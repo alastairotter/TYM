@@ -8,10 +8,10 @@ include("config.php");
 
 $name = $_GET["name"]; 
 $name = addslashes($name);
-$party = $_GET["party"]; 
-$municipality = $_GET["municipality"]; 
+$abbreviation = $_GET["abbreviation"]; 
 
-$sql = "INSERT INTO mayors (name, party, municipality) VALUES ('$name', '$party', '$municipality')";
+
+$sql = "INSERT INTO parties (name, abbreviation) VALUES ('$name', '$abbreviation')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";
