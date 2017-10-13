@@ -21,7 +21,7 @@ $sql = "Select * from $section";
 
     while($row = mysqli_fetch_assoc($query)) {
 
-           
+        if($section != "promises") {    
         //party details
         $q = "select * from parties where id = " . $row['party'];  
         $q = mysqli_query($db, $q);
@@ -35,6 +35,9 @@ $sql = "Select * from $section";
         $q = mysqli_fetch_assoc($q);
         $row['municipality_name'] = $q['municipality'];
         $row['municipality_province'] = $q['province'];
+            
+            }
+        
         
         //mayor details
         $q = "select * from mayors where id = " . $row['mayor'];  
@@ -43,9 +46,14 @@ $sql = "Select * from $section";
         $row['mayor_name'] = $q['name'];
         
         
+       
+            $row = array_map('utf8_encode', $row);
+            array_push($results,$row);
         
         
-        $results[] = $row;
+        
+        
+//        $results[] = $row;
 
     }
     echo json_encode($results);

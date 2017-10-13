@@ -1,4 +1,5 @@
-var baseUrl = "http://localhost:8888/trackyourmayor/admin/";	
+var baseUrl = "http://localhost:8888/trackyourmayor/admin/";
+//var baseUrl = "https://dev.mediahack.co.za/trackyourmayor/admin/";
 // create the module and name it myApp
 	var myApp = angular.module('myApp', ['ngRoute', 'ngCookies']);
 
@@ -255,6 +256,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             $http.get(baseUrl + "api/list.php?section=" + $scope.listSection)
                     .then( function(data) { 
                         $scope.listData = data.data;
+                        console.log($scope.listData);
                        
                         
                     });
