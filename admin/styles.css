@@ -134,9 +134,8 @@ th, td {
     text-transform: uppercase; 
     font-weight: 700; 
     padding-left: 10px;
-   
-   
     padding: 10px;
+   margin-bottom: 10px !important;
 }
 .header-inner { 
     width: 50%;
@@ -162,6 +161,31 @@ th, td {
     margin-left: 20%;
     
     
+    
+}
+
+.clear-filter { 
+    position: relative; 
+    z-index: 300;
+    top: -23px;
+    left: -10px;
+    font-size: 24px;
+    color: black;
+    display: inline-block;
+}
+.clear-filter:hover {
+    cursor: pointer; 
+    cursor: hand;
+}
+
+.fa-filter { 
+    color: gray;
+}
+
+.filterable:hover { 
+    color: #00AABE;
+    cursor: pointer; 
+    cursor: hand;
     
 }
 

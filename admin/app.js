@@ -59,24 +59,24 @@ myApp.run(['$rootScope',function($rootScope){
 // Add service to retrieve various options fo form fills
 myApp.service('getData', function () { 
 
-        this.getFormData = function (section, $http, $scope) { 
-                
-                $http.get(baseUrl + "api/list.php?section=" + section)
-                    .then( function(data) { 
-                        
-                    if(section === "municipalities") {     
-                        $scope.municipalities = data.data; 
-                    }
-                    else if(section === "parties") { 
-                        $scope.parties = data.data;
-                    }
-                    else if(section === "mayors") { 
-                        $scope.mayors = data.data;
-                    }
-            
-                    });
-            
-            } 
+//        this.getFormData = function (section, $http, $scope) { 
+//                
+//                $http.get(baseUrl + "api/list.php?section=" + section)
+//                    .then( function(data) { 
+//                        
+//                    if(section === "municipalities") {     
+//                        $scope.municipalities = data.data; 
+//                    }
+//                    else if(section === "parties") { 
+//                        $scope.parties = data.data;
+//                    }
+//                    else if(section === "mayors") { 
+//                        $scope.mayors = data.data;
+//                    }
+//            
+//                    });
+//            
+//            } 
 
 })
 
@@ -231,39 +231,53 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             $scope.listSection = $routeParams.section; 
             
-            if($scope.listSection === "mayors") { 
-                $scope.sortCol = "name";
-            }
+//            if($scope.listSection === "mayors") { 
+//                $scope.sortCol = "name";
+//            }
+        
+            //List Order
+            $scope.sortDir = "asc";
         
             $scope.listOrder = function (col) { 
-                $scope.sortCol = col;
+                if($scope.sortDir === "asc") {
+                    $scope.sortDir = "desc";
+                    $scope.sortCol = col;
+                }
+                else if($scope.sortDir === "desc") { 
+                    $scope.sortDir = "asc";
+                    $scope.sortCol = '-' + col; 
+                }
                 
+                
+            }
+            
+            $scope.clearFilter = function () { 
+                $scope.listFilter = '';
+            }
+            
+            $scope.filterList = function (filter) { 
+                $scope.listFilter = filter; 
+                console.log(filter);
             }
             
             // delete item 
             $scope.delete = function (id, section) { 
-               
 //                $scope.deleteDialog = true;
                 $rootScope.deleteId = id; 
                 $rootScope.deleteSection = section; 
                 $location.url("staging");
                 
             }
-            
-           
-            
-            
-            // get list
-            
-            $http.get(baseUrl + "api/list.php?section=" + $scope.listSection)
+                  
+            $http.get(baseUrl + "api/all_data.php")
                     .then( function(data) { 
-                        $scope.listData = data.data;
-                        console.log($scope.listData);
-                       
-                        
+                        $scope.promises = data.data.promises;
+                        $scope.mayors = data.data.mayors; 
+                        $scope.municipalities = data.data.municipalities; 
+                        $scope.categories = data.data.categories;
+                        $scope.parties = data.data.parties; 
                     });
         
-            
             
 
         }]);
@@ -280,9 +294,18 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             $scope.listSection = $routeParams.section; 
             
-            getData.getFormData("municipalities", $http, $scope); 
-            getData.getFormData("parties", $http, $scope);
-            getData.getFormData("mayors", $http, $scope);
+//            getData.getFormData("municipalities", $http, $scope); 
+//            getData.getFormData("parties", $http, $scope);
+//            getData.getFormData("mayors", $http, $scope);
+            
+            $http.get(baseUrl + "api/all_data.php")
+                    .then( function(data) { 
+                        $scope.promises = data.data.promises;
+                        $scope.mayors = data.data.mayors; 
+                        $scope.municipalities = data.data.municipalities; 
+                        $scope.categories = data.data.categories;
+                        $scope.parties = data.data.parties; 
+                    });
             
             $scope.party="placeholder";
         

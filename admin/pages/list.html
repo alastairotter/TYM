@@ -7,7 +7,13 @@
     </div>
     <div class="header-inner header-inner-right">
      <div class="header-inner-right-1">
+     
+    
+    
      <input type="text" class="form-control form-control-sm" placeholder="Type to filter" ng-model="listFilter">
+        <i class="fa fa-times-circle clear-filter" aria-hidden="true" ng-if="listFilter" ng-click="clearFilter()"></i>
+      
+         
       </div>
       <div class="header-inner-right-2">
        <a href="#!/add/{{listSection}}" ng-if="listSection=='municipalities'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add municipality</a>
@@ -32,7 +38,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in municipalities  | filter: listFilter | orderBy:sortCol">
         <td>{{item.municipality}}</td>
         <td>{{item.code}}</td>
         <td>{{item.province}}</td>
@@ -67,7 +73,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in parties  | filter: listFilter | orderBy:sortCol">
         <td>{{item.name}}</td>
         <td>{{item.abbreviation}}</td>
 <!--        <td>{{item.logo}}</td>-->
@@ -103,15 +109,17 @@
         <th class="sortable" ng-click="listOrder('name')">Name</th>
         <th class="sortable" ng-click="listOrder('municipality_name')">Municipality</th>
       <th class="sortable" ng-click="listOrder('party_name')">Party</th>
+      <th class="sortable" ng-click="listOrder('promises')">Promises</th>
 <!--      <th class="sortable" ng-click="listOrder('coalition')">Coalition</th>-->
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in mayors  | filter: listFilter | orderBy: sortCol">
         <td>{{item.name}}</td>
         <td>{{item.municipality_name}}</td>
         <td>{{item.party_name}}</td>
+        <td>{{item.promises}}</td>
 <!--         <td>{{item.coalition}}</td>-->
          <td class="operations">
          <a ng-click="delete(item.id,listSection)" class="trash" >
@@ -142,7 +150,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in categories  | filter: listFilter | orderBy:sortCol">
         <td>{{item.category}}</td>
         
          <td class="operations">
@@ -173,15 +181,17 @@
         <th class="sortable" ng-click="listOrder('mayor')">Mayor</th>
         <th>Promise</th>
         <th class="sortable" ng-click="listOrder('tracked')">Tracked</th>
+        <th class="sortable" ng-click="listOrder('status')">Status</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in listData  | filter: listFilter | orderBy:sortCol">
-       <td>{{item.mayor_name}}</td>
+    <tr ng-repeat="item in promises  | filter: listFilter | orderBy:sortCol">
+        <td ng-click="filterList(item.mayor_name)" class="filterable"> {{item.mayor_name}}  </td>
         <td>{{item.promise}}</td>
         <td>{{item.tracked}}</td>
+        <td>{{item.status}}</td>
         
          <td class="operations">
          <a ng-click="delete(item.id,listSection)" class="trash" >
