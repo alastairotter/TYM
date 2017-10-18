@@ -129,6 +129,8 @@ myApp.service('getData', function () {
 	});
 
 
+var jq = $.noConflict();
+
 myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $rootScope) {
 //		$rootScope.loggedIn;      
 	}]);
@@ -335,8 +337,25 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
                 
             }
-        
             
+            // jquery for datepicker
+            jq("document").ready( function () { 
+            jq('#date-pick .input-group.date').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true
+                }).on('changeDate', function(e) {
+                    console.log(e); 
+                    
+                });
+                
+            });
+
+            
+            // Set watches for due dates
+            
+            $scope.newDate = function () { 
+                console.log("New Date");
+            }
             
 
         }]);

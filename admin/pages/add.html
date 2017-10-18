@@ -146,24 +146,104 @@
     
   </div>
   
-  <div class="form-group">
+  
+   <div id="date-pick" class="form-group row">
+  <div class="col-md-4">
+   <label>Date of Promise</label>
+   <div class="input-group date">
+     
+      <input type="text" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+      </div>
+      
+       </div>
+      
+    
+<!--
+     <div id="date-pick" class="form-group row">
+    <div class="col-md-8">
+     <label>To Be Delivered By:</label>
+     
+     <label>
+         Date &nbsp; <input type="radio" ng-model="datetype" value="date"> &nbsp; Month: &nbsp; <input type="radio" ng-model="datetype" value="month"> &nbsp; Text Time: &nbsp; <input type="radio" ng-model="datetype" value="text">
+        </label>
+     
+         </div>
+    </div>
+     
+-->
+    
+    
+    
+    
+    <div class="form-group row">
+    <div  id="date-pick" class="col-md-4">
+    <label>Due Date</label> 
+      
+   <div class="input-group date">
+      <input type="text" [(ng-model)]="dueDate" (change)="newDate()" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+        
+        
+        <div id="date-pick-2" class="col-md-4">
+      
+       
+       <label>Due Month</label>
+   <div class="input-group date">
+      <input type="text" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+       
+       
+        </div>
+        
+        <div class="col-md-4">
+           <label>Text Time</label>
+            <select ng-model="mayor" class="form-control form-control-sm">
+              <option value="soon">Soon</option>
+              <option value="later">Later</option>
+              <option value="next-year">Next year</option>
+            </select>
+        </div>
+        
+        
+        <div id="passwordHelpBlock" class="form-text text-muted">
+  Please select one of the options above, either a specific date, a year-month combination, or a textual representation of a time. 
+</div>
+        
+    </div>
+        
+        
+        
+        
+    
+    
+      
+    
+    
+    
+    
+  
+  <div class="form-group row">
+   <div class="col-md-6">
     <label>Tracked</label>
-    <select ng-model="tracked" class="form-control form-control-sm">
+    <select ng-model="tracked" class="form-control form-control-sm ">
       <option  value="No">No</option>
       <option value="Yes">Yes</option>
     </select>
+      </div>
+      <div class="col-md-6" ng-if="tracked == 'Yes'">
+          <label>Status</label>
+          <select ng-model="status" class="form-control form-control-sm ">
+         
+      <option value="In progress">In progress</option>
+      <option value="Kept">Kept</option>
+    <option value="Broken">Broken</option>
+    </select>
+          </div>
     
   </div>
-  
-<!--
-  <div class="form-group">
-    <label for="exampleInputEmail1">Party Abbreviation</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="abbreviation">
-    
-  </div>
--->
-  
-  
   
   
   

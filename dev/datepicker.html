@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Untitled Document</title>
+    <link rel="stylesheet" href=".css">
+    <link rel="stylesheet" href="../lib/bootstrap4/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/bootstrap-datepicker-1.6.4/css/bootstrap-datepicker.min.css"> 
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    
+       
+       
+       <style>
+        
+           #sandbox-container { 
+           
+               padding-top: 80px;
+               width: 300px;
+           }
+           
+           .form-group label { 
+               font-weight: 700;
+               font-size: 90%;
+               margin-top: 40px;
+           }
+           
+           
+    .table-condensed { 
+        font-size: 80%; 
+           }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+
+   <div id="sandbox-container">
+   <div class="form-group">
+   <label>Promise Date</label>
+   <div class="input-group date">
+     
+      <input type="text" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+    
+    <label>Delivery Date</label>
+   <div class="input-group date">
+     
+      <input type="text" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+    
+    
+    <label>Delivery Month</label>
+   <div class="input-group">
+    
+     <select class="form-control form-control-sm">
+      <option>January</option>
+      <option>February</option>
+      <option>March</option>
+       </select>
+       &nbsp; &nbsp; <select class="form-control form-control-sm">
+      <option>2017</option>
+      <option>2018</option>
+      <option>2019</option>
+       </select>
+
+    </div>
+    
+    </div>
+
+    
+    
+</div>
+    </div>
+
+
+
+
+<script src="../lib/popper.js"></script>
+<script src="../lib/jquery-3.2.1.min.js"></script> 
+<script src="../lib/bootstrap4/js/bootstrap.min.js"></script>
+<script src="../lib/bootstrap-datepicker-1.6.4/js/bootstrap-datepicker.min.js"></script>
+
+
+<script>
+    $('#sandbox-container .input-group.date').datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true
+});
+    
+    $('#sandbox-container .input-group.month').datepicker({
+    format: "dd-mm-yyyy",
+    startView: 1,
+    minViewMode: 1,
+    autoclose: true
+});
+    
+
+    </script>
+
+
+        
+ 
+    
+ 
+
+</body>
+</html>
