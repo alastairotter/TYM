@@ -339,14 +339,49 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             }
             
             // jquery for datepicker
+            
+            $scope.clearDates = function () { 
+                console.log("clearDates");
+                document.getElementById("dueDate").value = "My value";
+                $scope.dueDate = "My value";
+                delete $scope.dueDate;
+                $scope.dueDate = '';             
+               
+                //Remove the assigned value
+                delete $scope.dueDate.value;
+            }
+            
+//            $scope.dueDate = " ";
+//            $scope.dueMonth = " ";
+            
             jq("document").ready( function () { 
             jq('#date-pick .input-group.date').datepicker({
                 format: "yyyy-mm-dd",
-                autoclose: true
-                }).on('changeDate', function(e) {
-                    console.log(e); 
-                    
+                autoclose: true,
+                clearBtn: true
+                }).on("changeDate", function (e) { 
+                    var ddate = document.getElementById("dueDate").value;
+                    $scope.dueDate = ddate;
+                    console.log($scope.dueDate);
+                
                 });
+                
+            jq('#date-pick-2 .input-group.date').datepicker({
+                format: "yyyy-mm",
+                startView: 1,
+                minViewMode: 1,
+                maxViewMode: 2,
+                autoclose: true,
+                clearBtn: true
+                }).on("changeDate", function (e) { 
+                    var dmonth = document.getElementById("dueMonth").value;
+                    $scope.dueMonth = dmonth;
+                    console.log($scope.dueMonth);
+                
+                });                                 
+                                                 
+                
+                
                 
             });
 

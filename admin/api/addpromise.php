@@ -11,6 +11,10 @@ $promise = $_GET['promise'];
 $promise = addslashes($promise);
 $tracked = $_GET["tracked"];
 
+$source = $_GET["source"];
+$promise_date = $_GET["promiseDate"];
+$due_date = $_GET["dueDate"];
+
 
 $sql = "INSERT INTO promises (mayor, promise, tracked) VALUES ('$mayor', '$promise', '$tracked')";
 
