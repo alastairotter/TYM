@@ -134,7 +134,7 @@
 <form >
   <div class="form-group">
     <label>Mayor</label>
-    <select ng-model="mayor" class="form-control form-control-sm">
+    <select ng-model="promise.mayor" class="form-control form-control-sm">
       <option  ng-repeat="item in mayors" value="{{item.id}}">{{item.name}}</option>
     </select>
     
@@ -142,14 +142,14 @@
   
   <div class="form-group">
     <label>Promise</label>
-      <textarea class="form-control form-control-sm" ng-model="promise"></textarea>
+      <textarea class="form-control form-control-sm" ng-model="promise.promise"></textarea>
     
   </div>
   
   
    <div class="form-group">
     <label>Source</label>
-      <input type="text" class="form-control form-control-sm" ng-model="source">
+      <input type="text" class="form-control form-control-sm" ng-model="promise.source">
     
   </div>
   
@@ -159,7 +159,7 @@
    <label>Date of Promise</label>
    <div class="input-group date">
      
-      <input type="text" ng-model="promiseDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+      <input type="text" ng-model="promise.date" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
     </div>
       </div>
       
@@ -188,7 +188,7 @@
     <label>Due Date</label> 
       
    <div class="input-group date">
-      <input id="dueDate" type="text" ng-model="dueDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+      <input id="dueDate" type="text" ng-model="promise.dateDue" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
     </div>
      
     </div>
@@ -199,7 +199,7 @@
        
        <label>Due Month</label>
    <div class="input-group date">
-      <input id="dueMonth" type="text" ng-model="dueMonth" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+      <input id="dueMonth" type="text" ng-model="promise.monthDue" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
     </div>
        
        
@@ -207,7 +207,7 @@
         
         <div class="col-md-4">
            <label>Text Time</label>
-            <select ng-model="mayor" class="form-control form-control-sm">
+            <select ng-model="promise.textDue" class="form-control form-control-sm">
              <option></option>
               <option value="soon">Soon</option>
               <option value="later">Later</option>
@@ -239,14 +239,14 @@
   <div class="form-group row">
    <div class="col-md-4">
     <label>Tracked</label>
-    <select ng-model="tracked" class="form-control form-control-sm ">
+    <select ng-model="promise.tracked" class="form-control form-control-sm ">
       <option  value="No">No</option>
       <option value="Yes">Yes</option>
     </select>
       </div>
-      <div class="col-md-4" ng-if="tracked == 'Yes'">
+      <div class="col-md-4" ng-if="promise.tracked == 'Yes'">
           <label>Status</label>
-          <select ng-model="status" class="form-control form-control-sm ">
+          <select ng-model="promise.status" class="form-control form-control-sm ">
          
       <option value="In progress">In progress</option>
       <option value="Kept">Kept</option>
@@ -259,7 +259,7 @@
   
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
-  <button type="submit" class="btn btn-sm btn-primary" ng-click="addPromise(mayor, promise, tracked)">Add</button>
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addPromise(promise)">Add</button>
 </form>
    
    <div>
