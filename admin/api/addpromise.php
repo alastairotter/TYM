@@ -10,13 +10,21 @@ $mayor = $_GET["mayor"];
 $promise = $_GET['promise'];
 $promise = addslashes($promise);
 $tracked = $_GET["tracked"];
+$status = $_GET["status"];
 
-$source = $_GET["source"];
-$promise_date = $_GET["promiseDate"];
-$due_date = $_GET["dueDate"];
+$source = addslashes($_GET["source"]);
+$promise_date = $_GET["date"];
+
+$due_month = $_GET["monthDue"];
+$due_text = $_GET["textDue"];
+
+if($_GET["dateDue"]) { $due_date = $_GET["dateDue"]; }
+elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
+//elseif($_GET["textDue"]) { $due_date = $_GET["textDue"]; }
+else { $due_date = ""; }
 
 
-$sql = "INSERT INTO promises (mayor, promise, tracked) VALUES ('$mayor', '$promise', '$tracked')";
+$sql = "INSERT INTO promises (mayor, promise, date_made, due_date, tracked, source, status) VALUES ('$mayor', '$promise', '$promise_date', '$due_date', '$tracked', '$source', '$status')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

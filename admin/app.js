@@ -270,8 +270,13 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
         myApp.controller('addController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
 
+            
+            
+            
             $scope.name; 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+            
+            $scope.promise; 
             
             $scope.listSection = $routeParams.section; 
             
@@ -324,11 +329,14 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             
             // Add promise
-            $scope.addPromise = function(mayor, promise, tracked) { 
+            $scope.addPromise = function(promise) { 
                 
                 
                 
-                $http.get(baseUrl + "api/addpromise.php?mayor=" + mayor + "&promise=" + promise + "&tracked=" + tracked)
+                var str = jq.param( promise );
+                
+                
+                $http.get(baseUrl + "api/addpromise.php?" + str)
                         .then( function (response) { 
                             if(response.data === "success") { 
                                 $location.url("list/promises");
