@@ -291,7 +291,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
             $scope.promise; 
-            $scope.party;
+            $scope.party = {};
             
             $scope.listSection = $routeParams.section; 
             
@@ -321,7 +321,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
             }
             
-            // Add party
+            // Add party            
 
             $scope.addParty = function(party) {
                 

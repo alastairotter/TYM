@@ -48,18 +48,19 @@
 
 
 <div ng-if="listSection=='parties'" class="add-wrap">
+<form #formCtrl="ngForm">
 <div class="header">Add A Party</div>
 
 <div class="add-form-wrap">
 
   <div class="form-group">
     <label >Party Name</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="party.name">
+    <input type="text" class="form-control form-control-sm" ng-model="party.name">
     
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Party Abbreviation</label>
+    <label >Party Abbreviation</label>
     <input type="text" class="form-control form-control-sm" name="username"  ng-model="party.abbreviation">
     
   </div>
@@ -68,9 +69,16 @@
 
 
 <div class="form-group">
-<input class="form-control-file" type="file" id="uploadfiles" multiple="multiple"/>
+<label>Party Logo</label>
+<div class="logo-wrap">
+<img class="logo-preview" ng-src="images/{{party.logo}}" ng-if="party.logo">
+    </div>
+
+<input class="form-control-file" type="file" id="uploadfiles" />
 <input type="hidden" ng-model="party.logo">
     </div>
+    
+    
 
 
 
@@ -90,14 +98,14 @@
 
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
-  <button type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party)">Add</button>
+  <button [disabled]="!formCtrl.form.valid" type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party)">Add</button>
+   
+   
 
    
-   <div>
-       
-     
-   </div>
+ 
     </div> <!-- End form wrap -->
+     </form>
 </div> <!-- End add wrap -->
 
 
