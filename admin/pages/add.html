@@ -6,7 +6,7 @@
 <div class="header">Add A Mayor</div>
 
 <div class="add-form-wrap">
-<form >
+
   <div class="form-group">
     <label for="exampleInputEmail1">Mayor's Name</label>
     <input type="text" class="form-control form-control-sm" name="username" aria-describedby="emailHelp" ng-model="name">
@@ -32,7 +32,7 @@
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
   <button type="submit" class="btn btn-sm btn-primary" ng-click="addMayor(name, party, municipality)">Add</button>
-</form>
+
    
    <div>
        
@@ -51,26 +51,47 @@
 <div class="header">Add A Party</div>
 
 <div class="add-form-wrap">
-<form >
+
   <div class="form-group">
-    <label for="exampleInputEmail1">Party Name</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="party_name">
+    <label >Party Name</label>
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="party.name">
     
   </div>
   
   <div class="form-group">
     <label for="exampleInputEmail1">Party Abbreviation</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="abbreviation">
+    <input type="text" class="form-control form-control-sm" name="username"  ng-model="party.abbreviation">
     
   </div>
   
-  
-  
-  
+
+
+
+<div class="form-group">
+<input class="form-control-file" type="file" id="uploadfiles" multiple="multiple"/>
+<input type="hidden" ng-model="party.logo">
+    </div>
+
+
+
+
+
+<script>
+        var uploadfiles = document.querySelector('#uploadfiles');
+        uploadfiles.addEventListener('change', function () {
+            console.log("triggered")
+        var files = this.files;
+        for(var i=0; i<files.length; i++){
+        uploadFile(this.files[i]); // call the function to upload the file
+            }
+        }, false);
+    </script>
+ 
+
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
-  <button type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party_name, abbreviation)">Add</button>
-</form>
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party)">Add</button>
+
    
    <div>
        
@@ -90,33 +111,19 @@
 <div class="header">Add A Category</div>
 
 <div class="add-form-wrap">
-<form >
+
   <div class="form-group">
     <label for="exampleInputEmail1">Category</label>
     <input type="text" class="form-control form-control-sm" name="username"  ng-model="category">
     
   </div>
   
-<!--
-  <div class="form-group">
-    <label for="exampleInputEmail1">Party Abbreviation</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="abbreviation">
-    
-  </div>
--->
+
   
-  
-  
-  
-  
-<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
   <button type="submit" class="btn btn-sm btn-primary" ng-click="addCategory(category)">Add</button>
-</form>
-   
-   <div>
-       
-     
-   </div>
+
+    
+  
     </div> <!-- End form wrap -->
 </div> <!-- End add wrap -->
 
@@ -131,7 +138,7 @@
 <div class="header">Add A Promise</div>
 
 <div class="add-form-wrap">
-<form >
+
   <div class="form-group">
     <label>Mayor</label>
     <select ng-model="promise.mayor" class="form-control form-control-sm">
@@ -182,7 +189,7 @@
     
     
     
-    <form>
+ 
     <div class="form-group row">
     <div  id="date-pick" class="col-md-4">
     <label>Due Date</label> 
@@ -223,7 +230,7 @@
 <!--       <div>{{dueDate}} {{dueMonth}}</div>-->
         
     </div>
-    </form>
+  
         
         
         
@@ -260,7 +267,7 @@
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
   <button type="submit" class="btn btn-sm btn-primary" ng-click="addPromise(promise)">Add</button>
-</form>
+
    
    <div>
        
@@ -269,3 +276,41 @@
     </div> <!-- End form wrap -->
 </div> <!-- End add wrap -->
 
+
+
+
+
+<script>
+    
+
+    
+function uploadFile(file){
+    var url = baseUrl + 'api/file_upload.php';
+   
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open("POST", url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Every thing ok, file uploaded
+            console.log(xhr.responseText); // handle response.
+            if(xhr.responseText === file.name + " OK") { 
+                            
+                // update scope
+                var scope = angular.element(jq(".add-wrap")).scope();
+                    scope.$apply(function() {
+                    scope.party.logo = file.name;
+                    
+                });
+
+                
+            }
+        }
+    };
+    fd.append("upload_file", file);
+    xhr.send(fd);
+}
+    
+
+
+</script>

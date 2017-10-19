@@ -9,9 +9,10 @@ include("config.php");
 $name = $_GET["name"]; 
 $name = addslashes($name);
 $abbreviation = $_GET["abbreviation"]; 
+$logo = $_GET["logo"];
 
 
-$sql = "INSERT INTO parties (name, abbreviation) VALUES ('$name', '$abbreviation')";
+$sql = "INSERT INTO parties (name, abbreviation, logo) VALUES ('$name', '$abbreviation', '$logo')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

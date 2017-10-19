@@ -291,12 +291,10 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
             $scope.promise; 
+            $scope.party;
             
             $scope.listSection = $routeParams.section; 
             
-//            getData.getFormData("municipalities", $http, $scope); 
-//            getData.getFormData("parties", $http, $scope);
-//            getData.getFormData("mayors", $http, $scope);
             
             $http.get(baseUrl + "api/all_data.php")
                     .then( function(data) { 
@@ -307,7 +305,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         $scope.parties = data.data.parties; 
                     });
             
-            $scope.party="placeholder";
+//            $scope.party="placeholder";
         
             
 //            Add Mayor
@@ -324,9 +322,14 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             }
             
             // Add party
-            $scope.addParty = function(name, abbreviation) { 
+
+            $scope.addParty = function(party) {
                 
-                $http.get(baseUrl + "api/addparty.php?name=" + name + "&abbreviation=" + abbreviation)
+                var str = jq.param( party );
+            
+                console.log(str);
+                
+                $http.get(baseUrl + "api/addparty.php?" + str)
                         .then( function (response) { 
                             if(response.data === "success") { 
                                 $location.url("list/parties");
@@ -357,6 +360,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
                 
                 var str = jq.param( promise );
+                
                 
                 
                 $http.get(baseUrl + "api/addpromise.php?" + str)
@@ -422,6 +426,44 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             $scope.newDate = function () { 
                 console.log("New Date");
             }
+            
+            
+            // file upload
+            
+//            $scope.uploadFiles = function(file, errFiles) {
+//                $scope.f = file;
+//                $scope.errFile = errFiles && errFiles[0];
+//                if (file) {
+//                    console.log(file);
+//                    file.upload = Upload.upload({
+//                        url: 'http://localhost:8888/trackyourmayor/admin/images',
+//                        data: {file: file}
+//                    });
+//
+//                    file.upload.then(function (response) {
+//                        $timeout(function () {
+//                            file.result = response.data;
+//                        });
+//                    }, function (response) {
+//                        if (response.status > 0)
+//                            $scope.errorMsg = response.status + ': ' + response.data;
+//                    }, function (evt) {
+//                        file.progress = Math.min(100, parseInt(100.0 * 
+//                                                 evt.loaded / evt.total));
+//                    });
+//                }   
+//            }
+            
+//             $scope.uploadfiles = document.querySelector('#uploadfiles');
+//                    $scope.uploadfiles = function () {
+//                        console.log("triggered")
+//                    var files = this.files;
+//                    for(var i=0; i<files.length; i++){
+//                    uploadFile(this.files[i]); // call the function to upload the file
+//                }
+//            };
+            
+          
             
 
         }]);
