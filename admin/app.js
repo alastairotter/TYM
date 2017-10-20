@@ -119,6 +119,10 @@ myApp.service('getData', function () {
 				templateUrl : 'pages/add.html',
 				controller  : 'addController'
 			})
+            .when('/edit/:section/:id', {
+				templateUrl : 'pages/edit.html',
+				controller  : 'editController'
+			})
             .when('/staging', {
 				templateUrl : 'pages/staging.html',
 				controller  : 'stagingController'
@@ -423,16 +427,197 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             // Set watches for due dates
             
-            $scope.newDate = function () { 
-                console.log("New Date");
-            }
-            
+//            $scope.newDate = function () { 
+//                console.log("New Date");
+//            }
+//            
             
           
           
             
 
         }]);
+
+
+
+        myApp.controller('editController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
+            
+           
+            $scope.name; 
+            auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+            
+             $scope.listSection = $routeParams.section; 
+             $scope.editId = $routeParams.id;
+            
+            
+            
+            // jquery for datepicker
+            
+            $scope.clearDates = function () { 
+                console.log("clearDates");
+                document.getElementById("dueDate").value = "My value";
+                $scope.dueDate = "My value";
+                delete $scope.dueDate;
+                $scope.dueDate = '';             
+               
+                //Remove the assigned value
+                delete $scope.dueDate.value;
+            }
+            
+//            $scope.dueDate = " ";
+//            $scope.dueMonth = " ";
+            
+            jq("document").ready( function () { 
+            jq('#date-pick .input-group.date').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                clearBtn: true
+                }).on("changeDate", function (e) { 
+                    var ddate = document.getElementById("dueDate").value;
+                    $scope.dueDate = ddate;
+                    console.log($scope.dueDate);
+                
+                });
+                
+            jq('#date-pick-2 .input-group.date').datepicker({
+                format: "yyyy-mm",
+                startView: 1,
+                minViewMode: 1,
+                maxViewMode: 2,
+                autoclose: true,
+                clearBtn: true
+                }).on("changeDate", function (e) { 
+                    var dmonth = document.getElementById("dueMonth").value;
+                    $scope.dueMonth = dmonth;
+                    console.log($scope.dueMonth);
+                
+                });                                 
+                                                 
+                
+                
+                
+            });
+            
+            
+            
+            $http.get(baseUrl + "api/all_data.php")
+                    .then( function(data) { 
+                        $scope.promises = data.data.promises;
+                        $scope.mayors = data.data.mayors; 
+                        $scope.municipalities = data.data.municipalities; 
+                        $scope.categories = data.data.categories;
+                        $scope.parties = data.data.parties; 
+                    });
+            
+            console.log($scope.listSection);
+            console.log($scope.editId);
+            
+            // get record
+            $http.get(baseUrl + "api/get_record.php?section=" + $scope.listSection + "&id=" + $scope.editId)
+                        .then( function (response) { 
+
+                            if($scope.listSection === "mayors") { $scope.mayor = response.data[0]; }
+                            else if($scope.listSection === "parties") { $scope.party = response.data[0]; }
+                            else if($scope.listSection === "categories") { $scope.category = response.data[0]; }
+                            else if($scope.listSection === "promises") { $scope.promise = response.data[0]; }
+                        });
+            
+            
+            //update
+            
+            $scope.updateMayor = function (mayor) { 
+                  
+                
+                var str = jq.param( mayor );
+                
+                
+                $http.get(baseUrl + "api/update_mayor.php?" + str)
+                    .then( function(data) { 
+                        if(data.data === "success") { 
+                            
+                            $location.url("list/mayors");
+                            
+                        }
+                    }); 
+                
+                
+            }
+            
+            
+            
+            $scope.updateParty = function (party) { 
+                  
+                
+                var str = jq.param( party );
+                
+                
+                $http.get(baseUrl + "api/update_party.php?" + str)
+                    .then( function(data) { 
+                        if(data.data === "success") { 
+                            
+                            $location.url("list/parties");
+                            
+                        }
+                    }); 
+                
+                
+            }
+            
+            
+            
+            
+            $scope.updateCategory = function (category) { 
+                  
+                
+                var str = jq.param( category );
+               
+                
+                $http.get(baseUrl + "api/update_category.php?" + str)
+                    .then( function(data) { 
+                        if(data.data === "success") { 
+                            
+                            $location.url("list/categories");
+                            
+                        }
+                    }); 
+                
+                
+            }
+            
+            
+            $scope.updatePromise = function (promise) { 
+                  
+                
+                var str = jq.param( promise );
+                
+                
+                $http.get(baseUrl + "api/update_promise.php?" + str)
+                    .then( function(data) { 
+                        if(data.data === "success") { 
+                            
+                            $location.url("list/promises");
+                            
+                        }
+                    }); 
+                
+                
+            }
+
+
+
+            
+            
+            
+        }]);
+
+
+
+
+
+
+
+
+
 
         myApp.controller('stagingController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
             

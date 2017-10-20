@@ -1,0 +1,39 @@
+
+<div class="search">
+
+<!--
+    <div class="search-box">
+        <input type="text" class="form-control form-control-sm" placeholder="Start typing to find your mayor">
+    </div>
+-->
+       
+       
+<div class="search-box">
+ <div class="row">
+ <div class="search-left">
+<angucomplete id="ex1"
+              placeholder="Start typing to search for your mayor or municipality"
+              pause="100"
+              selectedobject="selectedRecord"
+              localdata="search"
+              searchfields="name"
+              titlefield="name"
+              minlength="1"
+              inputclass="form-control form-control-small"/>
+     </div>
+             <div class="search-right">
+              <button class="btn btn-sm btn-success disabled" ng-hide="selectedRecord">GO</button>
+              <button class="btn btn-sm btn-success" ng-show="selectedRecord">GO</button>
+     </div>
+    
+  
+    </div>       
+    </div>
+
+</div>
+
+
+<!--
+<div class="" ng-show="selectedRecord">
+                    Results:<br /> <span class="bold-span">{{selectedRecord.originalObject.name}} {{selectedPerson.originalObject.surname}}</span>
+                </div>-->
