@@ -71,7 +71,7 @@
 <div class="form-group">
 <label>Party Logo</label>
 <div class="logo-wrap">
-<img class="logo-preview" ng-src="images/{{party.logo}}" ng-if="party.logo">
+<img class="logo-preview" ng-src="images/{{party.previewLogo}}" ng-if="party.logo">
     </div>
 
 <input class="form-control-file" type="file" id="uploadfiles" />
@@ -307,7 +307,10 @@ function uploadFile(file){
                 // update scope
                 var scope = angular.element(jq(".add-wrap")).scope();
                     scope.$apply(function() {
-                    scope.party.logo = file.name;
+                    scope.party.previewLogo = file.name;
+                    scope.party.logo = baseImages + file.name;
+                        console.log(scope.party.logo);
+                        
                     
                 });
 

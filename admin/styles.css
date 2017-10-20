@@ -278,6 +278,10 @@ img.logo-preview {
     margin-bottom: 10px;
     margin-top: 10px;
 }
+.list-logo-preview { 
+    width 20px;
+    height: 20px;
+}
 
 /* front */
 

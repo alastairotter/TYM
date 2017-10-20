@@ -1,4 +1,5 @@
 var baseUrl = "http://localhost:8888/trackyourmayor/admin/";
+var baseImages = "http://localhost:8888/trackyourmayor/admin/images/";
 //var baseUrl = "https://dev.mediahack.co.za/trackyourmayor/admin/";
 // create the module and name it myApp
 	var myApp = angular.module('myApp', ['ngRoute', 'ngCookies']);
@@ -231,9 +232,6 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             $scope.listSection = $routeParams.section; 
             
-//            if($scope.listSection === "mayors") { 
-//                $scope.sortCol = "name";
-//            }
         
             //List Order
             $scope.sortDir = "asc";
@@ -305,7 +303,6 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         $scope.parties = data.data.parties; 
                     });
             
-//            $scope.party="placeholder";
         
             
 //            Add Mayor
@@ -428,41 +425,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             }
             
             
-            // file upload
-            
-//            $scope.uploadFiles = function(file, errFiles) {
-//                $scope.f = file;
-//                $scope.errFile = errFiles && errFiles[0];
-//                if (file) {
-//                    console.log(file);
-//                    file.upload = Upload.upload({
-//                        url: 'http://localhost:8888/trackyourmayor/admin/images',
-//                        data: {file: file}
-//                    });
-//
-//                    file.upload.then(function (response) {
-//                        $timeout(function () {
-//                            file.result = response.data;
-//                        });
-//                    }, function (response) {
-//                        if (response.status > 0)
-//                            $scope.errorMsg = response.status + ': ' + response.data;
-//                    }, function (evt) {
-//                        file.progress = Math.min(100, parseInt(100.0 * 
-//                                                 evt.loaded / evt.total));
-//                    });
-//                }   
-//            }
-            
-//             $scope.uploadfiles = document.querySelector('#uploadfiles');
-//                    $scope.uploadfiles = function () {
-//                        console.log("triggered")
-//                    var files = this.files;
-//                    for(var i=0; i<files.length; i++){
-//                    uploadFile(this.files[i]); // call the function to upload the file
-//                }
-//            };
-            
+          
           
             
 
