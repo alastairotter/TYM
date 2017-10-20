@@ -10,8 +10,9 @@ $name = $_GET["name"];
 $name = addslashes($name);
 $party = $_GET["party"]; 
 $municipality = $_GET["municipality"]; 
+$photo = $_GET["photo"];
 
-$sql = "INSERT INTO mayors (name, party, municipality) VALUES ('$name', '$party', '$municipality')";
+$sql = "INSERT INTO mayors (name, party, municipality, photo) VALUES ('$name', '$party', '$municipality', '$photo')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

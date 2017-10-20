@@ -6,16 +6,16 @@
 <div class="header">Add A Mayor</div>
 
 <div class="add-form-wrap">
-
+<form name="mayorForm">
   <div class="form-group">
-    <label for="exampleInputEmail1">Mayor's Name</label>
-    <input type="text" class="form-control form-control-sm" name="username" aria-describedby="emailHelp" ng-model="name">
+    <label >Mayor's Name</label>
+    <input required type="text" class="form-control form-control-sm" ng-model="mayor.name">
     
   </div>
   
   <div class="form-group">
     <label>Party</label>
-    <select ng-model="party" class="form-control form-control-sm">
+    <select required ng-model="mayor.party" class="form-control form-control-sm">
       <option  ng-repeat="item in parties" value="{{item.id}}">{{item.name}}</option>
     </select>
     
@@ -23,17 +23,41 @@
   
   <div class="form-group">
     <label>Municipality</label>
-    <select ng-model="municipality" class="form-control form-control-sm">
+    <select required ng-model="mayor.municipality" class="form-control form-control-sm">
       <option>Select a municipality</option>
       <option ng-repeat="item in municipalities" value="{{item.id}}">{{item.municipality}}</option>
     </select>
     
   </div>
   
-<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
-  <button type="submit" class="btn btn-sm btn-primary" ng-click="addMayor(name, party, municipality)">Add</button>
+  <div class="form-group">
+<label>Photo</label>
+<div class="logo-wrap">
+<img class="logo-preview" ng-src="images/{{mayor.previewPhoto}}" ng-if="mayor.photo">
+    </div>
+    
+    {{mayor.previewPhoto}}
 
-   
+<input class="form-control-file" type="file" id="uploadphoto" />
+<input type="hidden" ng-model="mayor.photo">
+    </div>
+    
+    <script>
+        var uploadphotos = document.querySelector('#uploadphoto');
+        uploadphotos.addEventListener('change', function () {
+            console.log("triggered")
+        var files = this.files;
+        for(var i=0; i<files.length; i++){
+        uploadPhoto(this.files[i]); // call the function to upload the file
+            }
+        }, false);
+    </script>
+    
+  
+<!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addMayor(mayor)" ng-disabled="mayorForm.$invalid">Add</button>
+
+    </form>
    <div>
        
      
@@ -48,20 +72,21 @@
 
 
 <div ng-if="listSection=='parties'" class="add-wrap">
-<form #formCtrl="ngForm">
+<form name="partyForm">
+
 <div class="header">Add A Party</div>
 
 <div class="add-form-wrap">
 
   <div class="form-group">
     <label >Party Name</label>
-    <input type="text" class="form-control form-control-sm" ng-model="party.name">
+    <input required type="text" class="form-control form-control-sm" ng-model="party.name">
     
   </div>
   
   <div class="form-group">
     <label >Party Abbreviation</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="party.abbreviation">
+    <input required type="text" class="form-control form-control-sm" name="username"  ng-model="party.abbreviation">
     
   </div>
   
@@ -98,11 +123,11 @@
 
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
-  <button [disabled]="!formCtrl.form.valid" type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party)">Add</button>
+  <button [disabled]="!formCtrl.form.valid" type="submit" class="btn btn-sm btn-primary" ng-click="addParty(party)" ng-disabled="partyForm.$invalid">Add</button>
    
    
 
-   
+    
  
     </div> <!-- End form wrap -->
      </form>
@@ -116,23 +141,25 @@
 
 
 <div ng-if="listSection=='categories'" class="add-wrap">
+<form name="categoryForm">
 <div class="header">Add A Category</div>
 
 <div class="add-form-wrap">
 
   <div class="form-group">
     <label for="exampleInputEmail1">Category</label>
-    <input type="text" class="form-control form-control-sm" name="username"  ng-model="category">
+    <input required type="text" class="form-control form-control-sm" name="username"  ng-model="category">
     
   </div>
   
 
   
-  <button type="submit" class="btn btn-sm btn-primary" ng-click="addCategory(category)">Add</button>
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addCategory(category)" ng-disabled="categoryForm.$invalid">Add</button>
 
     
-  
+    
     </div> <!-- End form wrap -->
+    </form>
 </div> <!-- End add wrap -->
 
 
@@ -144,12 +171,12 @@
 
 <div ng-if="listSection=='promises'" class="add-wrap">
 <div class="header">Add A Promise</div>
-
+<form name="promiseForm">
 <div class="add-form-wrap">
 
   <div class="form-group">
     <label>Mayor</label>
-    <select ng-model="promise.mayor" class="form-control form-control-sm">
+    <select required ng-model="promise.mayor" class="form-control form-control-sm">
       <option  ng-repeat="item in mayors" value="{{item.id}}">{{item.name}}</option>
     </select>
     
@@ -157,7 +184,7 @@
   
   <div class="form-group">
     <label>Promise</label>
-      <textarea class="form-control form-control-sm" ng-model="promise.promise"></textarea>
+      <textarea required class="form-control form-control-sm" ng-model="promise.promise"></textarea>
     
   </div>
   
@@ -174,29 +201,12 @@
    <label>Date of Promise</label>
    <div class="input-group date">
      
-      <input type="text" ng-model="promise.date" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+      <input required type="text" ng-model="promise.date" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
     </div>
       </div>
       
        </div>
-      
-    
-<!--
-     <div id="date-pick" class="form-group row">
-    <div class="col-md-8">
-     <label>To Be Delivered By:</label>
-     
-     <label>
-         Date &nbsp; <input type="radio" ng-model="datetype" value="date"> &nbsp; Month: &nbsp; <input type="radio" ng-model="datetype" value="month"> &nbsp; Text Time: &nbsp; <input type="radio" ng-model="datetype" value="text">
-        </label>
-     
-         </div>
-    </div>
-     
--->
-    
-    
-    
+          
  
     <div class="form-group row">
     <div  id="date-pick" class="col-md-4">
@@ -254,7 +264,7 @@
   <div class="form-group row">
    <div class="col-md-4">
     <label>Tracked</label>
-    <select ng-model="promise.tracked" class="form-control form-control-sm ">
+    <select required ng-model="promise.tracked" class="form-control form-control-sm ">
       <option  value="No">No</option>
       <option value="Yes">Yes</option>
     </select>
@@ -274,7 +284,7 @@
   
   
 <!--  <button type="reset" class="btn btn-sm">Reset</button> &nbsp; -->
-  <button type="submit" class="btn btn-sm btn-primary" ng-click="addPromise(promise)">Add</button>
+  <button type="submit" class="btn btn-sm btn-primary" ng-click="addPromise(promise)" ng-disabled="promiseForm.$invalid">Add</button>
 
    
    <div>
@@ -282,6 +292,7 @@
      
    </div>
     </div> <!-- End form wrap -->
+    </form>
 </div> <!-- End add wrap -->
 
 
@@ -310,6 +321,40 @@ function uploadFile(file){
                     scope.party.previewLogo = file.name;
                     scope.party.logo = baseImages + file.name;
                         console.log(scope.party.logo);
+                        
+                    
+                });
+
+                
+            }
+        }
+    };
+    fd.append("upload_file", file);
+    xhr.send(fd);
+}
+    
+
+    function uploadPhoto(file){
+        
+        console.log("uploadPhoto");
+        
+    var url = baseUrl + 'api/file_upload.php';
+   
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open("POST", url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Every thing ok, file uploaded
+            console.log(xhr.responseText); // handle response.
+            if(xhr.responseText === file.name + " OK") { 
+                            
+                // update scope
+                var scope = angular.element(jq(".add-wrap")).scope();
+                    scope.$apply(function() {
+                    scope.mayor.previewPhoto = file.name;
+                    scope.mayor.photo = baseImages + file.name;
+                        console.log(scope.mayor.photo);
                         
                     
                 });

@@ -290,6 +290,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             $scope.promise; 
             $scope.party = {};
+            $scope.mayor = {};
             
             $scope.listSection = $routeParams.section; 
             
@@ -306,9 +307,11 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
         
             
 //            Add Mayor
-            $scope.addMayor = function(name, party, municipality) { 
+            $scope.addMayor = function(mayor) { 
+                var str = jq.param( mayor );
+                console.log(str);
                 
-                $http.get(baseUrl + "api/addmayor.php?name=" + name + "&party=" + party + "&municipality=" + municipality)
+                $http.get(baseUrl + "api/addmayor.php?" + str)
                         .then( function (response) { 
                             if(response.data === "success") { 
                                 $location.url("list/mayors");
