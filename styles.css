@@ -2,15 +2,21 @@ body {
     font-family: "Open sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 100;
     font-size: 90%;
-    background: #efefef;
+/*    background: #efefef;*/
 }
 
 .main-content { 
     margin-top: 50px;
 }
 
-.search { 
+.no-search { 
     margin-top: 20%;
+}
+
+.is-search { 
+    margin-top: 5%;
+    -webkit-transition:margin-top 1s; /* Safari */
+    transition: margin-top 1s;
 }
 .search-box { 
     width: 500px; 
@@ -24,4 +30,60 @@ body {
     width: 80%;
     float: left;
 }
+
+.search-results {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+  
+/*    border: solid 1px #eee; */
+    min-height: 400px;
+    margin-bottom: 200px;
+}
+
+.search-results .avatar { 
+    width: 128px;
+}
+
+.media {
+    
+/*    padding: 20px;*/
+/*    font-size: 90%;*/
+}
+
+.media .name { 
+    font-weight: 700;
+    font-size: 120%;
+    
+}
+
+.media .muni, .media .party { 
+    color: gray;
+}
+
+.media .promise { 
+    margin-top: 10px;
+}
+
+.media-title .main-title { 
+    font-weight: 700;
+
+}
+
+.cross-head { 
+    margin-top: 30px;
+    font-weight: 700;
+}
+
+.media .meta { 
+    font-size: 90%;
+    line-height: 200%;
+}
+
+.media .meta .header { 
+    font-weight: 700;
+}
+
+
 
