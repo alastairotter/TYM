@@ -1,3 +1,16 @@
+<!--
+<form name="myForm">
+ 
+    Simple Search: &nbsp; <input type="radio" ng-model="view.name" value="simpleSearch" selected> &nbsp; 
+    Browse List: &nbsp; <input type="radio" ng-model="view.name" value="browseList">
+    
+
+ </form>
+-->
+
+<!--<div class="simpleSearch" ng-if="view.name=='simpleSearch'">-->
+<div class="simpleSearch">
+
 
 <div ng-class="searchResult ? 'is-search' : 'no-search'">
 
@@ -64,7 +77,7 @@
     
       
    <div class="media">
-  <img class="mr-3 avatar" ng-src="{{searchResultsTitle.mayor_photo}}" >
+<!--  <img class="mr-3 avatar" ng-src="{{searchResultsTitle.mayor_photo}}" >-->
   <div class="media-body">
     <div class="name">Promises in {{searchResultsTitle.municipality_name}}</div>
 <!--
@@ -73,8 +86,11 @@
 -->
     
     <div class="promises"  ng-repeat="item in searchResults">
+    
     <div class="cross-head">Promise {{$index + 1}}</div>
+    <div class="meta"><span class="header">Mayor: </span> {{item.mayor_name}} </div>
     {{item.promise}}
+    
     <div class="meta"><span class="header">Category: </span> {{item.category}} </div>
     <div class="meta"><span class="header">Promise date: </span> {{item.date_made}} </div>
     <div class="meta"><span class="header">Due date: </span> {{item.due_date}} </div>
@@ -91,7 +107,11 @@
     
 </div>
 
-<!--
-<div class="" ng-show="selectedRecord">
-                    Results:<br /> <span class="bold-span">{{selectedRecord.originalObject.name}} {{selectedPerson.originalObject.surname}}</span>
-                </div>-->
+
+</div> <!-- End simpleSearch -->
+
+
+
+
+<!--<div class="listBrowse"  ng-if="view.name=='browseList'">-->
+

@@ -183,6 +183,22 @@
   </div>
   
   <div class="form-group">
+    <label>Municipality</label>
+    <select required ng-model="promise.municipality" class="form-control form-control-sm">
+      <option  ng-repeat="item in municipalities" value="{{item.id}}">{{item.municipality}}</option>
+    </select>
+    
+  </div>
+  
+    <div class="form-group">
+    <label>Category</label>
+    <select required ng-model="promise.category" class="form-control form-control-sm">
+      <option  ng-repeat="item in categories" value="{{item.id}}">{{item.category}}</option>
+    </select>
+    
+  </div>
+  
+  <div class="form-group">
     <label>Promise</label>
       <textarea required class="form-control form-control-sm" ng-model="promise.promise"></textarea>
     

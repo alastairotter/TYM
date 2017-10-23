@@ -173,7 +173,7 @@
 
 
 <div ng-if="listSection=='promises'" class="add-wrap">
-<div class="header">Add A Promise</div>
+<div class="header">Edit Promise</div>
 <form name="promiseForm">
 <div class="add-form-wrap">
 
@@ -181,6 +181,22 @@
     <label>Mayor</label>
     <select required ng-model="promise.mayor" class="form-control form-control-sm">
       <option  ng-repeat="item in mayors" value="{{item.id}}">{{item.name}}</option>
+    </select>
+    
+  </div>
+  
+  <div class="form-group">
+    <label>Municipality</label>
+    <select required ng-model="promise.municipality" class="form-control form-control-sm">
+      <option  ng-repeat="item in municipalities" value="{{item.id}}">{{item.municipality}}</option>
+    </select>
+    
+  </div>
+  
+      <div class="form-group">
+    <label>Category</label>
+    <select required ng-model="promise.category" class="form-control form-control-sm">
+      <option  ng-repeat="item in categories" value="{{item.id}}">{{item.category}}</option>
     </select>
     
   </div>

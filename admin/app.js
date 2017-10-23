@@ -301,11 +301,14 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             $http.get(baseUrl + "api/all_data.php")
                     .then( function(data) { 
+                        console.log(data);
                         $scope.promises = data.data.promises;
                         $scope.mayors = data.data.mayors; 
                         $scope.municipalities = data.data.municipalities; 
                         $scope.categories = data.data.categories;
                         $scope.parties = data.data.parties; 
+                
+                
                     });
             
         

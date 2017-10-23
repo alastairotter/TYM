@@ -18,6 +18,8 @@ $promise_date = $_GET["date"];
 
 $due_month = $_GET["monthDue"];
 $due_text = $_GET["textDue"];
+$municipality = $_GET["municipality"];
+$category = $_GET["category"];
 
 if($_GET["dateDue"]) { $due_date = $_GET["dateDue"]; }
 elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
@@ -25,7 +27,7 @@ elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
 else { $due_date = ""; }
 
 
-$sql = "UPDATE promises set mayor = '$mayor', promise = '$promise', date_made = '$promise_date', due_date = '$due_date', tracked = '$tracked', source = '$source', status = '$status' where id = '$id'";
+$sql = "UPDATE promises set mayor = '$mayor', promise = '$promise', date_made = '$promise_date', due_date = '$due_date', tracked = '$tracked', source = '$source', status = '$status', municipality = '$municipality', category = '$category' where id = '$id'";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

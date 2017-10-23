@@ -37,7 +37,7 @@ $results = array();
 
 if($id && $section) { 
 if($section == "mayor") { $sql = "Select * from promises where mayor = '$id'"; }
-elseif($section == "municipality") { echo $section; echo $id; $sql = "Select * from promises where municipality = '$id'"; }
+elseif($section == "municipality") { $sql = "Select * from promises where municipality = '$id'"; }
 
 //$sql = "Select * from promises";
     $query = mysqli_query($db, $sql);

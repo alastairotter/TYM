@@ -1,0 +1,64 @@
+<!--
+<form name="myForm">
+ 
+    Simple Search: &nbsp; <input type="radio" ng-model="view.name" value="simpleSearch" selected> &nbsp; 
+    Browse List: &nbsp; <input type="radio" ng-model="view.name" value="browseList">
+    
+
+ </form>
+-->
+
+<!--<div class="simpleSearch" ng-if="view.name=='simpleSearch'">-->
+
+
+
+
+
+<!--<div class="listBrowse"  ng-if="view.name=='browseList'">-->
+   <div class="listBrowse"  >
+    
+    
+  
+    
+    <div class="browse-list">
+       
+         <div class="notes">This is a rough idea of a way to filter the data. It's still pretty rough and the party abbreviation column occasionally fails to load (just refresh the page for now until I get it sorted) but the idea is that you can browse the promises this way. If you click on a column header you can filter by that column. For now it's just the <strong>Party</strong> and <strong>Mayor</strong> columns that are working. 
+         </div>
+        <table class="table">
+  <thead class="thead-dark">
+    <tr>
+    
+      <th scope="col" ng-click="mayorFind=true">
+          <span ng-if="!mayorFind">Mayor</span>
+          <select class="form-control form-control-xs" ng-if="mayorFind" ng-model="mayorHeader" ng-change="sortHeader(mayorHeader,'mayor')">
+            <option ng-repeat="item in mayors">{{item.name}}</option>
+        </select>
+          
+          </th>
+      <th scope="col">Municipality</th>
+      <th scope="col" ng-click="partyFind=true">
+          <span ng-if="!partyFind">Party</span>
+        <select class="form-control form-control-xs" ng-if="partyFind" ng-model="partyHeader" ng-change="sortHeader(partyHeader,'party')">
+            <option ng-repeat="item in parties">{{item.abbreviation}}</option>
+        </select>
+      </th>
+      <th>Category</th>
+      
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in promises | filter: browseFilter">
+    
+      <td>{{item.mayor_name}}</td>
+      <td>{{item.municipality_name}}</td>
+      <td>{{item.party_abbr}}</td>
+      <td>{{item.category_name}}</td>
+    </tr>
+   
+  </tbody>
+</table>
+    </div>
+    
+</div>
+
