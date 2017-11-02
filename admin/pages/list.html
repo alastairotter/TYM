@@ -180,8 +180,18 @@
 
     <tr>
      
-        <th class="sortable" ng-click="listOrder('mayor')">Mayor</th>
+        <th class="sortable" ng-click="listOrder('mayor_name')">
+        Mayor &nbsp; 
+<!--
+        <i class="fa fa-caret-up" aria-hidden="true" ></i>
+        <i class="fa fa-caret-down" aria-hidden="true" ></i>
+-->
+        </th>
+        <th class="sortable" ng-click="listOrder('municipality_name')">Municipality</th>
         <th>Promise</th>
+        <th>Category</th>
+        <th class="sortable" ng-click="listOrder('date_made')">Date made</th>
+        <th class="sortable" ng-click="listOrder('due_date')">Due date</th>
         <th class="sortable" ng-click="listOrder('tracked')">Tracked</th>
         <th class="sortable" ng-click="listOrder('status')">Status</th>
 
@@ -191,7 +201,11 @@
   <tbody>
     <tr ng-repeat="item in promises  | filter: listFilter | orderBy:sortCol">
         <td ng-click="filterList(item.mayor_name)" class="filterable"> {{item.mayor_name}}  </td>
+        <td>{{item.municipality_name}}</td>
         <td>{{item.promise}}</td>
+        <td>{{item.category_name}}</td>
+        <td>{{item.date_made}}</td>
+        <td>{{item.due_date}}</td>
         <td>{{item.tracked}}</td>
         <td>{{item.status}}</td>
         

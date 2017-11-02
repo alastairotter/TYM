@@ -176,11 +176,12 @@
 
   <div class="form-group">
     <label>Mayor</label>
-    <select required ng-model="promise.mayor" class="form-control form-control-sm">
-      <option  ng-repeat="item in mayors" value="{{item.id}}">{{item.name}}</option>
+    <select required ng-model="promise.mayor" class="form-control form-control-sm" ng-change="getMuni(selectedMayor)">
+      <option  ng-repeat="item in mayors" value="{{item.id}}" ng-model="selectedMayor">{{item.name}}</option>
     </select>
     
   </div>
+<!--
   
   <div class="form-group">
     <label>Municipality</label>
@@ -189,6 +190,7 @@
     </select>
     
   </div>
+-->
   
     <div class="form-group">
     <label>Category</label>
@@ -246,16 +248,7 @@
        
         </div>
         
-        <div class="col-md-4">
-           <label>Text Time</label>
-            <select ng-model="promise.textDue" class="form-control form-control-sm">
-             <option></option>
-              <option value="soon">Soon</option>
-              <option value="later">Later</option>
-              <option value="next-year">Next year</option>
-            </select>
-        </div>
-       
+
         
         <div id="passwordHelpBlock" class="form-text text-muted">
   Please select one of the options above, either a specific date, a year-month combination, or a textual representation of a time. 

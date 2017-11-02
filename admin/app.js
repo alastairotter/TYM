@@ -244,13 +244,15 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 if($scope.sortDir === "asc") {
                     $scope.sortDir = "desc";
                     $scope.sortCol = col;
+                    
                 }
                 else if($scope.sortDir === "desc") { 
                     $scope.sortDir = "asc";
                     $scope.sortCol = '-' + col; 
                 }
                 
-                
+               console.log($scope.sortDir);
+                console.log($scope.sortCol);
             }
             
             $scope.clearFilter = function () { 
@@ -278,6 +280,8 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         $scope.municipalities = data.data.municipalities; 
                         $scope.categories = data.data.categories;
                         $scope.parties = data.data.parties; 
+                
+                        console.log($scope.promises);
                     });
         
             
@@ -378,6 +382,10 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         });
                 
                 
+            }
+            
+            $scope.getMuni = function (selectedMayor) { 
+                console.log(selectedMayor);
             }
             
             // jquery for datepicker

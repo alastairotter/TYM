@@ -85,6 +85,11 @@ $sql = "Select * from promises";
         $q = mysqli_fetch_assoc($q);
         $row["municipality_name"] = $q["municipality"];
         $row["municipality_id"] = $muni;
+        // get category name
+        $q = "select * from categories where id = " . $row["category"];  
+        $q = mysqli_query($db, $q);
+        $q = mysqli_fetch_assoc($q);
+        $row['category_name'] = $q["category"];
         $row = array_map('utf8_encode', $row);
         array_push($promises,$row);
     }
