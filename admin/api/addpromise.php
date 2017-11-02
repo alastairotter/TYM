@@ -20,7 +20,7 @@ $due_text = $_GET["textDue"];
 $municipality = $_GET["municipality"];
 $category = $_GET["category"];
 
-if($_GET["dateDue"]) { $due_date = $_GET["dateDue"]; }
+if($_GET["dateDue"] && $_GET["due_date"] != " ") { $due_date = $_GET["dateDue"]; }
 elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
 //elseif($_GET["textDue"]) { $due_date = $_GET["textDue"]; }
 else { $due_date = ""; }

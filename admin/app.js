@@ -296,7 +296,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             $scope.name; 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
-            $scope.promise; 
+            $scope.promise = {}; 
             $scope.party = {};
             $scope.mayor = {};
             
@@ -384,21 +384,19 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
             }
             
-            $scope.getMuni = function (selectedMayor) { 
-                console.log(selectedMayor);
-            }
+//            $scope.getMuni = function (selectedMayor) { 
+//                console.log(selectedMayor);
+//            }
             
             // jquery for datepicker
             
             $scope.clearDates = function () { 
                 console.log("clearDates");
-                document.getElementById("dueDate").value = "My value";
-                $scope.dueDate = "My value";
-                delete $scope.dueDate;
-                $scope.dueDate = '';             
-               
-                //Remove the assigned value
-                delete $scope.dueDate.value;
+                document.getElementById("dueDate").value = "";
+                document.getElementById("dueMonth").value = "";
+                $scope.promise.dateDue = '';
+                $scope.promise.monthDue = '';
+
             }
             
 //            $scope.dueDate = " ";
@@ -413,6 +411,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                     var ddate = document.getElementById("dueDate").value;
                     $scope.dueDate = ddate;
                     console.log($scope.dueDate);
+                
                 
                 });
                 
@@ -464,15 +463,13 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             // jquery for datepicker
             
-            $scope.clearDates = function () { 
+             $scope.clearDates = function () { 
                 console.log("clearDates");
-                document.getElementById("dueDate").value = "My value";
-                $scope.dueDate = "My value";
-                delete $scope.dueDate;
-                $scope.dueDate = '';             
-               
-                //Remove the assigned value
-                delete $scope.dueDate.value;
+                document.getElementById("dueDate").value = "";
+                document.getElementById("dueMonth").value = "";
+                $scope.promise.dateDue = '';
+                $scope.promise.monthDue = '';
+
             }
             
 //            $scope.dueDate = " ";
