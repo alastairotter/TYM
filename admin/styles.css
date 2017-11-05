@@ -262,6 +262,30 @@ box-shadow: 3px 3px 15px -2px rgba(0,0,0,0.21);
     margin-top: 20px;
 }
 
+.list-pagination { 
+/*    padding: 10px;*/
+   
+    width: auto;
+   float: right;
+    text-align: right;
+    
+}
+
+.page-link { 
+    padding: 5px 10px;
+    font-weight: 400;
+    font-size: 90%;
+    color: #00AABE;
+}
+.page-link:hover { 
+    color: #000;
+}
+
+.page-item .disabled a { 
+    color: red;
+}
+
+
 /* Add */
 
 .add-wrap .header { 

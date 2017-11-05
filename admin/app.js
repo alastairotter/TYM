@@ -111,7 +111,7 @@ myApp.service('getData', function () {
 				templateUrl : 'pages/logout.html',
 				controller  : 'logoutController'
 			})
-            .when('/list/:section', {
+            .when('/list/:section/:page', {
 				templateUrl : 'pages/list.html',
 				controller  : 'listController'
 			})
@@ -233,9 +233,18 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
-            
+            $scope.prev = false; 
+        
             $scope.listSection = $routeParams.section; 
-            
+            $scope.page = $routeParams.page;
+            $scope.pageDepth = 3;
+            $scope.nextStart = +$scope.page + $scope.pageDepth;
+            $scope.prevStart = +$scope.page - $scope.pageDepth; 
+            if($scope.prevStart <0) { $scope.prevStart = 0; }
+             if($scope.page > 0) { $scope.prev = true; }
+            else if($scope.page == 0) { $scope.prev = false; }
+        
+        
         
             //List Order
             $scope.sortDir = "asc";
@@ -272,16 +281,14 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 $location.url("staging");
                 
             }
+            
                   
-            $http.get(baseUrl + "api/all_data.php")
+            $http.get(baseUrl + "api/all_data.php?section=" + $scope.listSection + "&start=" + $scope.page + "&count=" + $scope.pageDepth)
                     .then( function(data) { 
-                        $scope.promises = data.data.promises;
-                        $scope.mayors = data.data.mayors; 
-                        $scope.municipalities = data.data.municipalities; 
-                        $scope.categories = data.data.categories;
-                        $scope.parties = data.data.parties; 
-                
-                        console.log($scope.promises);
+                                        
+                        $scope.data = data.data;
+                          
+                        console.log($scope.data);
                     });
         
             

@@ -26,6 +26,28 @@
     <div class="clear"></div>
 </div>
 
+<div class="list-pagination">
+<!--       <a href="#!/list/{{listSection}}/{{nextStart}}">Next ({{nextStart}})</a>-->
+       <nav aria-label="...">
+  <ul class="pagination pagination-xs">
+    <li class="page-item" ng-class="prev ? 'enabled' : 'disabled'">
+      <a class="page-link" href="#!/list/{{listSection}}/{{prevStart}}" tabindex="-1">Previous</a>
+    </li>
+<!--
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item default">
+      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+-->
+    <li class="page-item">
+      <a class="page-link" href="#!/list/{{listSection}}/{{nextStart}}">Next</a>
+    </li>
+  </ul>
+</nav>
+        
+    </div>
+
 <table class="table table-striped" ng-if="listSection=='municipalities'">
   <thead class="thead thead-custom">
 
@@ -199,7 +221,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in promises  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
         <td ng-click="filterList(item.mayor_name)" class="filterable"> {{item.mayor_name}}  </td>
         <td>{{item.municipality_name}}</td>
         <td>{{item.promise}}</td>
@@ -220,6 +242,8 @@
              </td>
         
     </tr>
+    
+    
     
   </tbody>
 </table>
