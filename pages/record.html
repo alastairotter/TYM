@@ -1,0 +1,68 @@
+<div class="record-head">
+    
+       <div class="record-image">
+       <img ng-src={{recordData.stats.mayor_photo}}></div>
+       
+       <div class="record-details">
+           <div class="name">
+                {{recordData.stats.mayor_name}}
+            </div>
+            <div class="muni">
+                {{recordData.stats.municipality_name}}
+            </div>
+            <div class="party">
+                {{recordData.stats.party_name}}
+            </div>
+            <div class="options">
+                <div class="current">
+                    Listing {{recordData.stats.record_type}} promises ({{recordData.stats.current_record_count}})
+                </div>
+                <div class="other-options">
+                    <div class="options-links"><a href="#!/record/{{recordData.stats.mayor_id}}/1/Yes" >All promises ({{recordData.stats.total_promises}})</a> |</div>
+                    <div class="options-links" > <a href="#!/record/{{recordData.stats.mayor_id}}/0/Yes">Tracked promises ({{recordData.stats.tracked_promises}})</a> |</div>
+                    <div class="options-links" > <a href="#!/record/{{recordData.stats.mayor_id}}/0/No">Untracked promises ({{recordData.stats.untracked_promises}})</a></div>
+                </div>
+                
+            </div>
+            
+    </div>
+    <div class="record-filter">
+    Filter by category: &nbsp; 
+    
+    
+       <select ng-model="selectedFilter" ng-change="selectFilter()">
+        
+        <option ng-repeat="item in cats | orderBy:'cat_name'" value="{{item.category}}">{{item.cat_name}}</option>
+    </select>
+    </div>
+    <div style="clear: both;"></div>
+    
+</div>
+ <table class="table records">
+  <thead class="thead thead-custom">
+
+    <tr>
+     
+      <th class="sortable col-wide" ng-click="listOrder('municipality')">Promise</th>
+      <th class="sortable" ng-click="listOrder('code')">Source</th>
+      <th class="sortable" ng-click="listOrder('province')">Promise date</th>
+      <th class="sortable" ng-click="listOrder('province')">Category</th>
+      <th class="sortable" ng-click="listOrder('province')">Result</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+<!--    <tr ng-repeat="item in municipalities  | filter: listFilter | orderBy:sortCol">-->
+        <tr ng-repeat="item in recordData">
+        <td>{{item.promise}}</td>
+        <td class="source"><a href="{{item.source}}" ng-if="item.source"><i class="fa fa-folder" aria-hidden="true"></i></a></td>
+        <td>{{item.date_made}}</td>
+        <td>{{item.category_name}}</td>
+        <td>{{item.status}}</td>
+        
+         
+        
+    </tr>
+    
+  </tbody>
+</table>

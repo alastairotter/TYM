@@ -14,9 +14,11 @@
 
 <div ng-class="searchResult ? 'is-search' : 'no-search'">
 
+<!--
   <div class="masthead-holder">
        <img src="images/masthead.jpg" ng-class="searchResult ? 'masthead-small' : 'masthead'">
     </div>
+-->
        
 <div class="search-box">
  <div class="row">
@@ -32,8 +34,8 @@
               inputclass="form-control form-control-small"/>
      </div>
              <div class="search-right">
-              <button class="btn btn-sm btn-success disabled" ng-hide="selectedRecord">GO</button>
-              <button class="btn btn-sm btn-success" ng-show="selectedRecord" ng-click="viewRecord()">GO</button>
+              <button class="btn btn-sm btn-default disabled search-btn" ng-hide="selectedRecord">GO</button>
+              <button class="btn btn-sm btn-success search-btn" ng-show="selectedRecord " ng-click="viewRecord()">GO</button>
      </div>
      
          
@@ -44,30 +46,30 @@
 </div>
 
 <!-- Mayors -->
-<div class="search-results" ng-if="searchResult && searchType=='mayor'">
+<div class="search-results" ng-if="searchResult">
     
       
-   <div class="media">
-  <img class="mr-3 avatar" ng-src="{{searchResultsTitle.mayor_photo}}" alt="Generic placeholder image">
+   <div class="media-new">
+<!--  <img class="mr-3 avatar" ng-src="{{searchResultsTitle.mayor_photo}}" alt="Generic placeholder image">-->
   <div class="media-body">
-    <div class="name">Promises by {{searchResultsTitle.mayor_name}}</div>
+    <div class="name">{{searchResultsTitle.mayor_name}}</div>
     <div class="muni">{{searchResultsTitle.municipality_name}}</div>
     <div class="party">{{searchResultsTitle.party_name}}</div>
+
     
-    <div class="promises"  ng-repeat="item in searchResults">
-    <div class="cross-head">Promise {{$index + 1}}</div>
-    {{item.promise}}
-    <div class="meta"><span class="header">Category: </span> {{item.category}} </div>
-    <div class="meta"><span class="header">Promise date: </span> {{item.date_made}} </div>
-    <div class="meta"><span class="header">Due date: </span> {{item.due_date}} </div>
-    <div class="meta"><span class="header">Tracked: </span> {{item.tracked}} </div>
-    <div class="meta" ng-if="item.tracked=='Yes'"><span class="header">Status: </span> {{item.status}} </div>
-    
+    <img class="dial" src="images/dial.png">
+    <div class="card-promises">
+        <a href="#!/record/{{searchResults.stats.mayor_id}}/1/Yes">All promises ({{searchResults.stats.total_promises}})</a><br />
+        <a href="#!/record/{{searchResults.stats.mayor_id}}/0/Yes">Tracked promises ({{searchResults.stats.tracked_promises}})</a><br />
+        <a href="#!/record/{{searchResults.stats.mayor_id}}/0/No">Untracked promises ({{searchResults.stats.untracked_promises}})</a><br />
     </div>
     
     
   </div>
+  <div style="clear: both;"></div>
 </div>
+   
+ 
     
    
     
@@ -75,17 +77,15 @@
 
 
 <!-- Municipalities -->
+<!--
 <div class="search-results" ng-if="searchResult && searchType=='municipality'">
     
       
    <div class="media">
-<!--  <img class="mr-3 avatar" ng-src="{{searchResultsTitle.mayor_photo}}" >-->
+
   <div class="media-body">
     <div class="name">Promises in {{searchResultsTitle.municipality_name}}</div>
-<!--
-    <div class="muni">{{searchResultsTitle.municipality_name}}</div>
-    <div class="party">{{searchResultsTitle.party_name}}</div>
--->
+
     
     <div class="promises"  ng-repeat="item in searchResults">
     
@@ -108,10 +108,24 @@
    
     
 </div>
+-->
 
 
 </div> <!-- End simpleSearch -->
 
+<div class="home-options">
+Or <a href="#!browse">browse</a> the database of promises
+</div>
+
+<div class="home-buttons">
+   
+    <a href="#!/result/1"><img src="images/status1.jpg"></a>
+     <a href="#!/result/2"><img src="images/status2.jpg"></a>
+     <a href="#!/result/3"><img src="images/status3.jpg"></a>
+     <a href="#!/result/4"><img src="images/status4.jpg"></a>
+    <br />
+    <div class="icon-links" >Click one of the icons above to find promises in each of the categories</div>
+</div>
 
 
 

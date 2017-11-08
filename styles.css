@@ -2,15 +2,16 @@ body {
     font-family: "Open sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 100;
     font-size: 90%;
+    background: #fff;
 /*    background: #efefef;*/
 }
 
 .main-content { 
-    margin-top: 20px;
+/*    margin-top: 20px;*/
 }
 
 .no-search { 
-    margin-top: 20%;
+    margin-top: 5%;
 }
 
 .is-search { 
@@ -22,13 +23,25 @@ body {
     width: 500px; 
     margin-left: auto;
     margin-right: auto;
-    color: red;
+
+    text-align: center;
+    padding-left: 50px;
+    margin-top: 100px;
   
+}
+
+.search-box input { 
+    font-size: 90%;
+    padding: 15px;
 }
 
 .search-left { 
     width: 80%;
     float: left;
+}
+
+.search-btn { 
+    margin-top: 8px;
 }
 
 .search-results {
@@ -46,23 +59,30 @@ body {
     width: 128px;
 }
 
-.media {
-    
+.media-new {
+    padding: 20px;
+    border: solid 1px #ddd;
+    font-size: 95%;
+    line-height: 200%;
 /*    padding: 20px;*/
 /*    font-size: 90%;*/
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.26);
+-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.26);
+box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.26);
+    margin-bottom: 25px;
 }
 
-.media .name { 
+.media-new .name { 
     font-weight: 700;
     font-size: 120%;
     
 }
 
-.media .muni, .media .party { 
-    color: gray;
+.media-new .muni, .media .party { 
+/*    color: gray;*/
 }
 
-.media .promise { 
+.media-new .promise { 
     margin-top: 10px;
 }
 
@@ -147,21 +167,34 @@ select.form-control-xs {
     margin-bottom: 20px;
     background: #eee;
     padding: 10px;
+    height: 100px;
+    
 /*    font-style: italic;*/
     
 }
 
 .masthead-holder { 
-    width: 870px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-right: 130px;
+    padding-top: 2%;;
+    background: #fffde5;
+    background: darkseagreen;
+    text-align: center;
+    padding-bottom: 2%;
+    border-bottom: solid 1px lightgray;
+   -webkit-box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
+-moz-box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
+box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
+    
 }
 .masthead  { 
-    width: 700px;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 30px;
+/*    margin-bottom: 30px;*/
+    
+  
     
 }
 
@@ -172,3 +205,133 @@ select.form-control-xs {
     margin-bottom: 60px;
 }
 
+
+.home-options { 
+    margin-top: 10px;
+    width: 500px;
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 80%;
+    color: gray;
+}
+
+.home-buttons { 
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    
+}
+
+.home-buttons img { 
+    margin-top: 50px;
+    display: inline;
+    width: 120px;
+}
+
+.card-promises { 
+    margin-top: 20px;
+    
+}
+
+.dial { 
+    width: 250px;
+    float: right; 
+}
+
+.records .col-wide { 
+    width: 50%;
+}
+
+.record-head { 
+    margin-top: 50px;
+    padding: 10px;
+/*    background: #e0e0e0;*/
+/*    border-top: solid 1px #000;*/
+    border-bottom: solid 1px #000;
+/*    margin-bottom: 20px;*/
+    line-height: 170%;
+    padding-bottom: 30px;
+    
+}
+
+
+
+.record-image { 
+    float: left;
+    
+    
+}
+.record-image img { 
+    width: 130px;
+}
+
+.record-details, .record-details-text {
+    float: left;
+    margin-left: 20px;
+   
+}
+
+.record-details-text { 
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+
+.record-details .name, .record-details-text .name { 
+
+    font-weight: 700;
+    font-size: 120%;
+    text-transform: capitalize;
+    
+}
+
+.record-details-text img { 
+    width: 100px;
+}
+
+.record-details-text .name { 
+    display: inline;
+}
+.record-details-text .icons { 
+    display: inline;
+    margin-left: 200px; 
+}
+.record-details-text .icons img { 
+    width: 60px;
+    margin-right: 20px;
+}
+.record-filter { 
+    text-align: right; 
+}
+
+.options .current { 
+    font-weight: 700;
+}
+
+.options-links { 
+    display: inline;
+
+}
+
+.status-icon img { 
+    width: 80px;
+}
+
+.source { 
+    text-align: center;
+    
+}
+
+.source a { 
+    color: #000;
+    
+}
+.source a:hover { 
+    color:blue; 
+}
+
+.icon-links { 
+    margin-top: 20px;
+}
