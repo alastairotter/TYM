@@ -232,7 +232,7 @@ th, td {
 }
 
 .sortable:hover  {
-    cursor: s-resize;  
+/*    cursor: s-resize;  */
 }
 
 .sortable .fa { 

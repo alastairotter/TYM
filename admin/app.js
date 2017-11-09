@@ -5,7 +5,7 @@ var baseImages = "http://localhost:8888/trackyourmayor/admin/images/";
 	var myApp = angular.module('myApp', ['ngRoute', 'ngCookies']);
 
 myApp.run(['$rootScope',function($rootScope){
-//    $rootScope.loggedIn = false;
+    $rootScope.sortFilter;
 }]);
 
   myApp.service('auth', function () { 
@@ -233,11 +233,18 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
-            $scope.prev = false; 
+            if($rootScope.sortFilter) { 
+                console.log("sortFilter set");
+            }  
+            else { 
+                console.log("sortFilter not set");
+            }
+        
+        $scope.prev = false; 
         
             $scope.listSection = $routeParams.section; 
             $scope.page = $routeParams.page;
-            $scope.pageDepth = 3;
+            $scope.pageDepth = 10;
             $scope.nextStart = +$scope.page + $scope.pageDepth;
             $scope.prevStart = +$scope.page - $scope.pageDepth; 
             if($scope.prevStart <0) { $scope.prevStart = 0; }
@@ -249,20 +256,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             //List Order
             $scope.sortDir = "asc";
         
-            $scope.listOrder = function (col) { 
-                if($scope.sortDir === "asc") {
-                    $scope.sortDir = "desc";
-                    $scope.sortCol = col;
-                    
-                }
-                else if($scope.sortDir === "desc") { 
-                    $scope.sortDir = "asc";
-                    $scope.sortCol = '-' + col; 
-                }
-                
-               console.log($scope.sortDir);
-                console.log($scope.sortCol);
-            }
+           
             
             $scope.clearFilter = function () { 
                 $scope.listFilter = '';
@@ -282,7 +276,10 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
             }
             
-                  
+            
+            
+            var url =  baseUrl + "api/all_data.php?section=" + $scope.listSection + "&start=" + $scope.page + "&count=" + $scope.pageDepth;
+            
             $http.get(baseUrl + "api/all_data.php?section=" + $scope.listSection + "&start=" + $scope.page + "&count=" + $scope.pageDepth)
                     .then( function(data) { 
                                         

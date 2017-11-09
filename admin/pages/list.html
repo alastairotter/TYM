@@ -60,7 +60,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in municipalities  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
         <td>{{item.municipality}}</td>
         <td>{{item.code}}</td>
         <td>{{item.province}}</td>
@@ -96,7 +96,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in parties  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
         <td>{{item.name}}</td>
         <td>{{item.abbreviation}}</td>
 <!--        <td><img ng-src="{{item.logo}}" class="list-logo-preview"></td>-->
@@ -139,7 +139,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in mayors  | filter: listFilter | orderBy: sortCol">
+    <tr ng-repeat="item in data  | filter: listFilter | orderBy: sortCol">
         <td>{{item.name}}</td>
         <td>{{item.municipality_name}}</td>
         <td>{{item.party_name}}</td>
@@ -174,7 +174,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in categories  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
         <td>{{item.category}}</td>
         
          <td class="operations">
