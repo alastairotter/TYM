@@ -6,6 +6,26 @@ var baseImages = "http://localhost:8888/trackyourmayor/admin/images/";
 
 myApp.run(['$rootScope',function($rootScope){
     $rootScope.sortFilter;
+    $rootScope.mayorFilter;
+    $rootScope.muniFilter;
+    $rootScope.catFilter;
+    $rootScope.statusFilter;
+    $rootScope.partyFilter;
+    $rootScope.trackedFilter;
+    $rootScope.filersOn = false;
+    
+    $rootScope.clearFilterOnChange = function ()  { 
+        
+                $rootScope.filtersOn = false; 
+                $rootScope.mayorFilter = "";
+                $rootScope.muniFilter = "";
+                $rootScope.catFilter = "";
+                $rootScope.statusFilter = "";
+                $rootScope.partyFilter = "";
+                $rootScope.trackedFilter = "";
+           
+
+    }
 }]);
 
   myApp.service('auth', function () { 
@@ -31,8 +51,6 @@ myApp.run(['$rootScope',function($rootScope){
                $http.get(baseUrl + "api/auth.php?un=" + un + "&pw=" + pw)
                     .then( function(data) { 
 
-                       
-
                         if(data.data === 1) { 
                             $rootScope.loggedIn = true;
                             $rootScope.fullname = fullname;
@@ -55,6 +73,21 @@ myApp.run(['$rootScope',function($rootScope){
         } // checkAuth
 
     }); // End of auth function
+
+
+myApp.filter('orderObjectBy', function() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    filtered.sort(function (a, b) {
+      return (a[field] > b[field] ? 1 : -1);
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
+});
 
 
 // Add service to retrieve various options fo form fills
@@ -150,30 +183,30 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
         
 	}]);
 
-    myApp.controller('frontController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
+//    myApp.controller('frontController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
+//
+//            auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+//        
+//            $http.get(baseUrl + "api/list_front.php")
+//                .then( function (data) { 
+//                    
+//                    $scope.frontData = data.data;
+//                
+//                    })
+//
+//        }]);
 
-            auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
-        
-            $http.get(baseUrl + "api/list_front.php")
-                .then( function (data) { 
-                    
-                    $scope.frontData = data.data;
-                
-                    })
+//	myApp.controller('aboutController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
+//		
+//        auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+//        
+//	}]);
 
-        }]);
-
-	myApp.controller('aboutController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
-		
-        auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
-        
-	}]);
-
-	myApp.controller('contactController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
-      
-		auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
-        
-	}]);
+//	myApp.controller('contactController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
+//      
+//		auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
+//        
+//	}]);
 
     myApp.controller('loginController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', function ($scope, $http, $cookies, auth, $location, $rootScope) {
 		
@@ -233,16 +266,14 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
-            if($rootScope.sortFilter) { 
-                console.log("sortFilter set");
-            }  
-            else { 
-                console.log("sortFilter not set");
-            }
+
         
-        $scope.prev = false; 
+            $scope.prev = false; 
         
             $scope.listSection = $routeParams.section; 
+        
+            
+        
             $scope.page = $routeParams.page;
             $scope.pageDepth = 10;
             $scope.nextStart = +$scope.page + $scope.pageDepth;
@@ -250,43 +281,112 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             if($scope.prevStart <0) { $scope.prevStart = 0; }
              if($scope.page > 0) { $scope.prev = true; }
             else if($scope.page == 0) { $scope.prev = false; }
+
         
-        
-        
-            //List Order
-            $scope.sortDir = "asc";
-        
-           
-            
-            $scope.clearFilter = function () { 
-                $scope.listFilter = '';
-            }
-            
-            $scope.filterList = function (filter) { 
-                $scope.listFilter = filter; 
-                console.log(filter);
-            }
-            
-            // delete item 
             $scope.delete = function (id, section) { 
-//                $scope.deleteDialog = true;
                 $rootScope.deleteId = id; 
                 $rootScope.deleteSection = section; 
                 $location.url("staging");
                 
             }
             
+            $scope.clearFilters = function () { 
+                $rootScope.filtersOn = false; 
+                $rootScope.mayorFilter = "";
+                $rootScope.muniFilter = "";
+                $rootScope.catFilter = "";
+                $rootScope.statusFilter = "";
+                $rootScope.partyFilter = "";
+                $rootScope.trackedFilter = "";
+                
+                $scope.getData();
+            }
+
             
             
-            var url =  baseUrl + "api/all_data.php?section=" + $scope.listSection + "&start=" + $scope.page + "&count=" + $scope.pageDepth;
             
-            $http.get(baseUrl + "api/all_data.php?section=" + $scope.listSection + "&start=" + $scope.page + "&count=" + $scope.pageDepth)
+                    $scope.listFilter = function (col, selected) {
+                       
+                        if(col === "mayor") { $rootScope.mayorFilter = selected; }
+                        if(col === "municipality") { $rootScope.muniFilter = selected; }
+                        if(col === "category") { $rootScope.catFilter = selected; }
+                        if(col === "status") { $rootScope.statusFilter = selected; }
+                        if(col === "party") { console.log(selected); $rootScope.partyFilter = selected; }
+                        if(col === "tracked") { $rootScope.trackedFilter = selected; }
+                        
+
+                        $scope.getData();
+                    }
+         
+
+            
+            $scope.getData = function () {
+                
+            if($scope.listSection == 'promises') { $rootScope.promisesList = true; }
+                else { $rootScope.promisesList = false; }
+                     
+           $scope.fetchUrl = baseUrl + "api/all_data.php?section=" + $scope.listSection + "&start=" + $scope.page + "&count=" + $scope.pageDepth;
+                
+               
+             
+            
+                
+            if($scope.mayorFilter) {
+                $rootScope.filtersOn = true;
+                $scope.fetchUrl += "&mayor=" + $rootScope.mayorFilter; }
+                
+            if($scope.muniFilter) {
+                $rootScope.filtersOn = true;
+                $scope.fetchUrl += "&municipality=" + $rootScope.muniFilter; }
+                
+            if($scope.catFilter) {
+                $rootScope.filtersOn = true;
+                $scope.fetchUrl += "&category=" + $rootScope.catFilter; }
+            
+            if($scope.statusFilter) {
+                $rootScope.filtersOn = true;
+                $scope.fetchUrl += "&status=" + $rootScope.statusFilter; }
+                
+            if($scope.partyFilter) {
+                $rootScope.filtersOn = true;
+                $scope.fetchUrl += "&party=" + $rootScope.partyFilter; }
+              
+            if($scope.trackedFilter) {
+                $rootScope.filtersOn = true;
+                $scope.fetchUrl += "&tracked=" + $rootScope.trackedFilter; }
+       
+                
+            console.log($scope.fetchUrl);
+                
+            $http.get($scope.fetchUrl)
                     .then( function(data) { 
-                                        
-                        $scope.data = data.data;
-                          
+                            
+                        $scope.categories = data.data.categories;
+                        $scope.mayors = data.data.mayors;
+                        $scope.municipalities = data.data.municipalities;
+                        $scope.statuses = data.data.statuses; 
+                        $scope.parties = data.data.parties;
+                        delete data.data['statuses'];
+                        delete data.data['categories'];
+                        delete data.data['mayors'];
+                        delete data.data['municipalities'];
+                        delete data.data['parties'];
+                            $scope.data = data.data;
+                        
+                        console.log("----------------------");
+                        
                         console.log($scope.data);
+                        console.log($scope.mayors);
+                        console.log($scope.parties);
+                
+                        console.log("----------------------");
+
+                     
                     });
+                
+            };
+      
+            $scope.getData();
         
             
 
@@ -294,6 +394,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
 
         myApp.controller('addController', ['$scope', '$http','$cookies', 'auth', '$location', '$rootScope', '$routeParams', 'getData', function ($scope, $http, $cookies, auth, $location, $rootScope, $routeParams, getData) {
 
+            
             
             
             
@@ -307,7 +408,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             $scope.listSection = $routeParams.section; 
             
             
-            $http.get(baseUrl + "api/all_data.php")
+            $http.get(baseUrl + "api/core_data.php")
                     .then( function(data) { 
                         console.log(data);
                         $scope.promises = data.data.promises;
@@ -329,7 +430,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 $http.get(baseUrl + "api/addmayor.php?" + str)
                         .then( function (response) { 
                             if(response.data === "success") { 
-                                $location.url("list/mayors");
+                                $location.url("list/mayors/0");
                             }
                         });
                 
@@ -347,7 +448,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 $http.get(baseUrl + "api/addparty.php?" + str)
                         .then( function (response) { 
                             if(response.data === "success") { 
-                                $location.url("list/parties");
+                                $location.url("list/parties/0");
                             }
                         });
                 
@@ -361,7 +462,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 $http.get(baseUrl + "api/addcategory.php?category=" + category)
                         .then( function (response) { 
                             if(response.data === "success") { 
-                                $location.url("list/categories");
+                                $location.url("list/categories/0");
                             }
                         });
                 
@@ -375,27 +476,26 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 
                 
                 var str = jq.param( promise );
+                console.log("---------------------------" + str);
                 
                 
                 
                 $http.get(baseUrl + "api/addpromise.php?" + str)
                         .then( function (response) { 
                             if(response.data === "success") { 
-                                $location.url("list/promises");
+                                $location.url("list/promises/0");
                             }
                         });
                 
                 
             }
             
-//            $scope.getMuni = function (selectedMayor) { 
-//                console.log(selectedMayor);
-//            }
+
             
             // jquery for datepicker
             
             $scope.clearDates = function () { 
-                console.log("clearDates");
+                
                 document.getElementById("dueDate").value = "";
                 document.getElementById("dueMonth").value = "";
                 $scope.promise.dateDue = '';
@@ -512,7 +612,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
             
             
-            $http.get(baseUrl + "api/all_data.php")
+            $http.get(baseUrl + "api/core_data.php")
                     .then( function(data) { 
                         $scope.promises = data.data.promises;
                         $scope.mayors = data.data.mayors; 
@@ -547,7 +647,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                     .then( function(data) { 
                         if(data.data === "success") { 
                             
-                            $location.url("list/mayors");
+                            $location.url("list/mayors/0");
                             
                         }
                     }); 
@@ -567,7 +667,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                     .then( function(data) { 
                         if(data.data === "success") { 
                             
-                            $location.url("list/parties");
+                            $location.url("list/parties/0");
                             
                         }
                     }); 
@@ -588,7 +688,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                     .then( function(data) { 
                         if(data.data === "success") { 
                             
-                            $location.url("list/categories");
+                            $location.url("list/categories/0");
                             
                         }
                     }); 
@@ -607,7 +707,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                     .then( function(data) { 
                         if(data.data === "success") { 
                             
-                            $location.url("list/promises");
+                            $location.url("list/promises/0");
                             
                         }
                     }); 
@@ -638,7 +738,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             
              $scope.cancelDelete = function () { 
                 $scope.deleteDialog = false;
-                 $location.url("list/" + $rootScope.deleteSection);
+                 $location.url("list/" + $rootScope.deleteSection + "/0");
                  
              }
              
@@ -650,7 +750,7 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         $scope.listData = deletedata.data;
                    
                         if(deletedata.data === "success") { 
-                            $location.url("list/" + $rootScope.deleteSection);
+                            $location.url("list/" + $rootScope.deleteSection + "/0");
                         }
                     });
              }

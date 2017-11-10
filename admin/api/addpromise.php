@@ -17,8 +17,15 @@ $promise_date = $_GET["date"];
 
 $due_month = $_GET["monthDue"];
 $due_text = $_GET["textDue"];
-$municipality = $_GET["municipality"];
 $category = $_GET["category"];
+
+// municipality and party
+$q = "Select party, municipality from mayors where id = '$mayor'";
+$q = mysqli_query($db, $q);
+$q = mysqli_fetch_assoc($q);
+$municipality = $q['municipality'];
+$party = $q['party'];
+
 
 if($_GET["dateDue"] && $_GET["due_date"] != " ") { $due_date = $_GET["dateDue"]; }
 elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
@@ -26,7 +33,7 @@ elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
 else { $due_date = ""; }
 
 
-$sql = "INSERT INTO promises (mayor, promise, date_made, due_date, tracked, source, status, municipality, category) VALUES ('$mayor', '$promise', '$promise_date', '$due_date', '$tracked', '$source', '$status', '$municipality', '$category')";
+$sql = "INSERT INTO promises (mayor, promise, date_made, due_date, tracked, source, status, municipality, category, party) VALUES ('$mayor', '$promise', '$promise_date', '$due_date', '$tracked', '$source', '$status', '$municipality', '$category', '$party')";
 
     if($query = mysqli_query($db, $sql)) { 
         $result = "success";

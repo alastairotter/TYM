@@ -11,7 +11,6 @@ $count = $_GET['count'];
 
 
 
-
 //$list = array("parties", "municipalities");
 $results = array();
 
@@ -93,78 +92,8 @@ switch ($section) {
         
         
     case "promises": 
-        
-        // DEFINE QUERY
-        
-//        if($_GET['mayor']) {
-//            $mayor = $_GET['mayor'];
-////            $mayor = "mayor = '$mayor'";
-////            $sql = "Select * from promises where mayor = '$mayor' limit $start, $count";
-//        }
-        
-        // create query
-        $clauses = 0;
-        $w; 
-        if($_GET['mayor']) {
-            $mayor = $_GET['mayor'];
-            
-            if($clauses == 0) { 
-                $w = $w .  "WHERE mayor = '$mayor' "; $clauses++;   }
-            
-            else { 
-                $w = $w . " AND mayor = '$mayor' "; $clauses++;   }
-        }
-        
-        if($_GET['municipality']) {
-            $municipality = $_GET['municipality'];
-            
-            if($clauses == 0) { 
-                $w = $w .  "WHERE municipality = '$municipality' "; $clauses++;   }
-            
-            else { 
-                $w = $w . " AND municipality = '$municipality' "; $clauses++;   }
-        }
-        
-        if($_GET['category']) {
-            $category = $_GET['category'];
-            
-            if($clauses == 0) { 
-                $w = $w .  "WHERE category = '$category' "; $clauses++;   }
-            
-            else { 
-                $w = $w . " AND category = '$category' "; $clauses++;   }
-        }
-        
-        if($_GET['status']) {
-            $status = $_GET['status'];
-            
-            if($clauses == 0) { 
-                $w = $w .  "WHERE status = '$status' "; $clauses++;   }
-            
-            else { 
-                $w = $w . " AND status = '$status' "; $clauses++;   }
-        }
-        
-        
-        if($_GET['tracked']) {
-            $tracked = $_GET['tracked'];
-            
-            if($clauses == 0) { 
-                $w = $w .  "WHERE tracked = '$tracked' "; $clauses++;   }
-            
-            else { 
-                $w = $w . " AND tracked = '$tracked' "; $clauses++;   }
-        }
-        
 
-echo $w; 
-        
-        $sql = "Select * from promises " . $w . " limit $start, $count";
-        
-        echo $sql;
-        
-        
-        
+        $sql = "Select * from promises limit $start, $count";
             $query = mysqli_query($db, $sql);
             $promises = array();
             while($row = mysqli_fetch_assoc($query)) {

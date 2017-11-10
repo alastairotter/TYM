@@ -5,16 +5,8 @@
     <div class="header-inner">
         {{listSection}}
     </div>
-    <div class="header-inner header-inner-right">
-     <div class="header-inner-right-1">
+   
      
-    
-    
-     <input type="text" class="form-control form-control-sm" placeholder="Type to filter" ng-model="listFilter">
-        <i class="fa fa-times-circle clear-filter" aria-hidden="true" ng-if="listFilter" ng-click="clearFilter()"></i>
-      
-         
-      </div>
       <div class="header-inner-right-2">
        <a href="#!/add/{{listSection}}" ng-if="listSection=='municipalities'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add municipality</a>
        <a href="#!/add/{{listSection}}" ng-if="listSection=='mayors'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add mayor</a>
@@ -22,7 +14,7 @@
         <a href="#!/add/{{listSection}}" ng-if="listSection=='categories'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add category</a>
         <a href="#!/add/{{listSection}}" ng-if="listSection=='promises'"><i class="fa fa-plus-circle" aria-hidden="true"></i> add promise</a>
         </div>
-        </div>
+       
     <div class="clear"></div>
 </div>
 
@@ -33,13 +25,7 @@
     <li class="page-item" ng-class="prev ? 'enabled' : 'disabled'">
       <a class="page-link" href="#!/list/{{listSection}}/{{prevStart}}" tabindex="-1">Previous</a>
     </li>
-<!--
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item default">
-      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
--->
+
     <li class="page-item">
       <a class="page-link" href="#!/list/{{listSection}}/{{nextStart}}">Next</a>
     </li>
@@ -47,6 +33,10 @@
 </nav>
         
     </div>
+    
+    
+    
+    <!-- MUNICIPALITIES -->
 
 <table class="table table-striped" ng-if="listSection=='municipalities'">
   <thead class="thead thead-custom">
@@ -60,7 +50,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data | orderObjectBy:'municipality'">
         <td>{{item.municipality}}</td>
         <td>{{item.code}}</td>
         <td>{{item.province}}</td>
@@ -96,7 +86,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data | orderObjectBy:'name'">
         <td>{{item.name}}</td>
         <td>{{item.abbreviation}}</td>
 <!--        <td><img ng-src="{{item.logo}}" class="list-logo-preview"></td>-->
@@ -139,7 +129,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data  | filter: listFilter | orderBy: sortCol">
+    <tr ng-repeat="item in data | orderObjectBy:'name'">
         <td>{{item.name}}</td>
         <td>{{item.municipality_name}}</td>
         <td>{{item.party_name}}</td>
@@ -174,7 +164,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data">
         <td>{{item.category}}</td>
         
          <td class="operations">
@@ -197,46 +187,145 @@
 
 
 <!-- promises -->
+<!--
+<div class="row filters">
+
+<select  ng-if="listSection=='promises'" ng-model="mayorFilter" class="form-control form-control-sm col-md-2" ng-change="listFilter('mayor', mayorFilter)" ng-options="item.mayor_name for item in mayors track by item.mayor">
+    <option value=''>Mayor</option>
+</select>
+
+<select  ng-if="listSection=='promises'" ng-model="partyFilter" class="form-control form-control-sm col-md-1" ng-change="listFilter('party', partyFilter)" ng-options="item.party_abbreviation for item in parties track by item.party_id">
+    <option value=''>Party</option>
+</select>
+
+<select  ng-if="listSection=='promises'" ng-model="muniFilter" class="form-control form-control-sm col-md-2" ng-change="listFilter('municipality', muniFilter)" ng-options="item.municipality_name for item in municipalities track by item.municipality">
+   <option value=''>Municipality</option>
+</select>
+
+<select  ng-if="listSection=='promises'" ng-model="catFilter" class="form-control form-control-sm col-md-2" ng-change="listFilter('category', catFilter)" ng-options="cat.category_name for cat in categories track by cat.category">
+    <option value=''>Category</option>
+    <option ng-repeat="item in data.categories" ng-value="{{item.category}}">{{item.category_name}}</option>
+</select>
+
+<select ng-if="listSection=='promises'" ng-model="statusFilter" class="form-control form-control-sm col-md-1" ng-change="listFilter('status', statusFilter)"
+     ng-options="item.status for item in statuses track by item.status">
+     <option value=''>Result</option>
+</select>
+    
+    
+
+
+</div>
+-->
+
+<div class="filter-details" ng-if="filtersOn && promisesList">
+    <a  ng-click="clearFilters()"><i class="fa fa-undo" aria-hidden="true"></i> <span class="clear-filters"> Clear Filters</span></a>
+    
+</div>
+
+
 <table class="table table-striped header-fixed" ng-if="listSection=='promises'">
   <thead class="thead-custom">
 
     <tr>
      
-        <th class="sortable" ng-click="listOrder('mayor_name')">
-        Mayor &nbsp; 
-<!--
-        <i class="fa fa-caret-up" aria-hidden="true" ></i>
-        <i class="fa fa-caret-down" aria-hidden="true" ></i>
--->
+        <th>
+       <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Mayor
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in mayors | orderBy: 'mayor_name'"><a ng-click="listFilter('mayor', item.mayor)">{{item.mayor_name}}</a></li>
+
+    </ul>
+  </div>    
+        
+
         </th>
-        <th class="sortable" ng-click="listOrder('municipality_name')">Municipality</th>
-        <th>Promise</th>
-        <th class="sortable" ng-click="listOrder('category_name')">Category</th>
-        <th class="sortable" ng-click="listOrder('date_made')">Date made</th>
-        <th class="sortable" ng-click="listOrder('due_date')">Due date</th>
-        <th class="sortable" ng-click="listOrder('tracked')">Tracked</th>
-        <th class="sortable" ng-click="listOrder('status')">Status</th>
+        
+        <th>
+       <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Party
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in parties | orderBy: 'party_name'"><a ng-click="listFilter('party', item.party)">{{item.party_name}}</a></li>
+
+    </ul>
+  </div>    
+        
+
+        </th>
+        
+        <th>
+            <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Municipality
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in municipalities | orderBy: 'municipality_name'"><a ng-click="listFilter('municipality', item.municipality)">{{item.municipality_name}}</a></li>
+
+    </ul>
+  </div>
+       </th>
+        <th class="no-filter">Promise</th>
+        
+        
+        <th>
+        <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Category
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in categories | orderBy: 'category_name'"><a ng-click="listFilter('category', item.category)">{{item.category_name}}</a></li>
+
+    </ul>
+  </div>    </th>
+        
+        
+        <th class="no-filter">Date made</th>
+        <th class="no-filter">Due date</th>
+        <th class="no-filter">Source</th>
+        <th >
+        <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Tracked
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a ng-click="listFilter('tracked', 'Yes')">Yes</a></li>
+      <li><a ng-click="listFilter('tracked', 'No')">No</a></li>
+
+    </ul>
+  </div>
+       </th>
+        <th >
+         <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Result
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in statuses | orderBy: 'status'"><a ng-click="listFilter('status', item.status)">{{item.status}}</a></li>
+
+    </ul>
+  </div>   
+        
+        </th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data  | filter: listFilter | orderBy:sortCol">
+    <tr ng-repeat="item in data | orderObjectBy:'mayor_name'">
         <td ng-click="filterList(item.mayor_name)" class="filterable"> {{item.mayor_name}}  </td>
-        <td>{{item.municipality_name}}</td>
+       <td>{{item.party_abbr}}</td>
+         <td>{{item.municipality_name}}</td>
+        
         <td>{{item.promise}}</td>
         <td>{{item.category_name}}</td>
         <td>{{item.date_made}}</td>
         <td>{{item.due_date}}</td>
+        <td class="source-icon"><a href="{{item.source}}" target="_new"><i class="fa fa-folder" aria-hidden="true" ng-if="item.source"></i></a></td>
         <td>{{item.tracked}}</td>
         <td>{{item.status}}</td>
         
          <td class="operations">
          <a ng-click="delete(item.id,listSection)" class="trash" >
              <i class="fa fa-trash-o" aria-hidden="true"></i>
-             </a> &nbsp; 
-             
-        <a href="#!/edit/{{listSection}}/{{item.id}}" class="edit">
+             </a>&nbsp;<a href="#!/edit/{{listSection}}/{{item.id}}" class="edit">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
              </a>
              </td>
