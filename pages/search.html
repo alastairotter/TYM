@@ -119,10 +119,18 @@ Or <a href="#!browse/0">browse</a> our database of promises
 
 <div class="home-buttons">
    
-    <a href="#!/result/1"><img src="images/status1.jpg"></a>
+<!--    <a href="#!/result/1"><img src="images/status1.jpg"></a>-->
+    <a ng-click="filterResults('Kept in part')" class="front-links"><img src="images/status1.jpg"></a>
+    <a ng-click="filterResults('Kept')" class="front-links"><img src="images/status2.jpg"></a>
+    <a ng-click="filterResults('Broken')" class="front-links"><img src="images/status3.jpg"></a>
+    <a ng-click="filterResults('In progress')" class="front-links"><img src="images/status4.jpg"></a>
+    
+    
+<!--
      <a href="#!/result/2"><img src="images/status2.jpg"></a>
      <a href="#!/result/3"><img src="images/status3.jpg"></a>
      <a href="#!/result/4"><img src="images/status4.jpg"></a>
+-->
     <br />
     <div class="icon-links" >Click one of the icons above to find promises in each of the categories</div>
 </div>

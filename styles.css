@@ -435,7 +435,10 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
 }
 
 .table-condensed td { 
-    font-size: 90%; 
+    font-size: 70%; 
+}
+.table-condensed th { 
+    font-size: 70%;
 }
 
 .dropdown button{ 
@@ -458,7 +461,8 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
 }
 
 .promise-td { 
-    max-width: 300px;
+    width: 300px;
+    
 }
 .list-pagination { 
     float: right;
@@ -466,4 +470,20 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
 }
 .list-pagination a { 
     color: #34C3E1;
+}
+
+.angucomplete-searching { 
+background: #000;
+}
+
+.front-links:hover { 
+    cursor: pointer;
+    cursor: hand;
+}
+
+.table-browse  td { 
+    font-size: 90%;
+}
+.table-browse th { 
+    font-size: 100%;
 }

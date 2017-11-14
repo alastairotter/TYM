@@ -298,20 +298,20 @@ switch ($section) {
             $startdate = $_GET['startdate'];
             
             if($clauses == 0) { 
-                $w = $w .  "WHERE promises.due_date > '$startdate' "; $clauses++;   }
+                $w = $w .  "WHERE promises.due_date >= '$startdate' "; $clauses++;   }
             
             else { 
-                $w = $w . " AND promises.due_date > '$startdate' "; $clauses++;   }
+                $w = $w . " AND promises.due_date >= '$startdate' "; $clauses++;   }
         }
         
         if($_GET['enddate']) {
             $enddate = $_GET['enddate'];
             
             if($clauses == 0) { 
-                $w = $w .  "WHERE promises.due_date < '$enddate' "; $clauses++;   }
+                $w = $w .  "WHERE promises.due_date <= '$enddate' "; $clauses++;   }
             
             else { 
-                $w = $w . " AND promises.due_date < '$enddate' "; $clauses++;   }
+                $w = $w . " AND promises.due_date <= '$enddate' "; $clauses++;   }
         }
         
 

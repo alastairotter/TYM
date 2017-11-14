@@ -57,6 +57,7 @@
 
     <tr>
      
+      <th>Mayor</th>
       <th class="sortable col-wide" ng-click="listOrder('municipality')">Promise</th>
       <th class="sortable" ng-click="listOrder('code')">Source</th>
       <th class="sortable" ng-click="listOrder('province')">Promise date</th>
@@ -68,8 +69,9 @@
   <tbody>
 <!--    <tr ng-repeat="item in municipalities  | filter: listFilter | orderBy:sortCol">-->
         <tr ng-repeat="item in recordData">
+        <td>{{item.mayor_name}}</td>
         <td>{{item.promise}}</td>
-        <td class="source"><a href="{{item.source}}" ng-if="item.source"><i class="fa fa-folder" aria-hidden="true"></i></a></td>
+        <td class="source"><a target="_new" href="{{item.source}}" ng-if="item.source"><i class="fa fa-folder" aria-hidden="true"></i></a></td>
         <td>{{item.date_made}}</td>
         <td>{{item.category_name}}</td>
         <td>{{item.status}}</td>

@@ -138,7 +138,7 @@ if($id && $tracked) {
 //        echo "There is start date";
         $startdate = $_GET['startdate'];
         $enddate = $_GET['enddate'];
-        $sql .= " and due_date > '$startdate' and due_date < '$enddate'";
+        $sql .= " and due_date >= '$startdate' and due_date <= '$enddate'";
 //        echo $sql;
     }
 

@@ -137,6 +137,13 @@ myApp.controller('searchController', ['$scope', '$http', '$location', '$rootScop
             $scope.tableFind = true; 
             
         }
+        
+        
+        $scope.filterResults = function (status) { 
+            console.log(status);
+            $rootScope.statusFilter = status;
+            $location.url("/browse/0");
+        }
 
        
 
@@ -663,6 +670,9 @@ myApp.controller('recordStatusController', ['$scope', '$http', '$location', '$ro
                         console.log($scope.recordData);
             
                         $scope.cats = data.data.cats;
+                        $scope.stats = data.data.stats;
+                        delete data.data.cats;
+                        delete data.data.stats;
             
                 
             
