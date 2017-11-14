@@ -448,3 +448,16 @@ td.source-icon {
     text-align: center;
 }
 
+.filter-button { 
+    margin-top: 8px;
+}
+
+.filterlabel { 
+    text-align: right; 
+    margin-top: 15px;
+    
+    
+}
+
+
+

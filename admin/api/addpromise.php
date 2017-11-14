@@ -28,7 +28,12 @@ $party = $q['party'];
 
 
 if($_GET["dateDue"] && $_GET["due_date"] != " ") { $due_date = $_GET["dateDue"]; }
-elseif($_GET["monthDue"]) { $due_date = $_GET["monthDue"] . "-01"; }
+elseif($_GET["monthDue"]) {
+    $dates = $_GET['monthDue'];
+    $date = explode("-", $dates);
+    $count = cal_days_in_month(CAL_GREGORIAN, $date[1], $date[0]); // 31
+    
+    $due_date = $_GET["monthDue"] . "-" . $count; }
 //elseif($_GET["textDue"]) { $due_date = $_GET["textDue"]; }
 else { $due_date = ""; }
 

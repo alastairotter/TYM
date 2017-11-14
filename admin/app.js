@@ -14,6 +14,7 @@ myApp.run(['$rootScope',function($rootScope){
     $rootScope.trackedFilter;
     $rootScope.filersOn = false;
     
+    
     $rootScope.clearFilterOnChange = function ()  { 
         
                 $rootScope.filtersOn = false; 
@@ -267,7 +268,6 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             auth.checkAuth($http, $location, $cookies, $scope, $rootScope);
             
 
-        
             $scope.prev = false; 
         
             $scope.listSection = $routeParams.section; 
@@ -298,6 +298,14 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                 $rootScope.statusFilter = "";
                 $rootScope.partyFilter = "";
                 $rootScope.trackedFilter = "";
+                console.log("clearing filters");
+                $rootScope.startDate = "";
+                $rootScope.endDate = "";
+                console.log("cleared");
+                document.getElementById("startDate").value = '';
+                document.getElementById("endDate").value = '';
+                
+                
                 
                 $scope.getData();
             }
@@ -313,6 +321,9 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
                         if(col === "status") { $rootScope.statusFilter = selected; }
                         if(col === "party") { console.log(selected); $rootScope.partyFilter = selected; }
                         if(col === "tracked") { $rootScope.trackedFilter = selected; }
+                        if(col === "date") { $rootScope.dateFilter = true; $rootScope.startDate = $scope.startDate; $rootScope.endDate = $scope.endDate; }
+                        
+                        
                         
 
                         $scope.getData();
@@ -354,6 +365,16 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             if($scope.trackedFilter) {
                 $rootScope.filtersOn = true;
                 $scope.fetchUrl += "&tracked=" + $rootScope.trackedFilter; }
+                
+            if($scope.dateFilter) {
+//                console.log("-------------------- Got Here --------------");
+//                console.log("StartDate: " + $rootScope.startDate);
+//                console.log("EndDate: " + $rootScope.endDate);
+//                console.log("-------------------- Got Here --------------");
+                $rootScope.filtersOn = true; 
+                $scope.fetchUrl += "&startdate=" + $rootScope.startDate + "&enddate=" + $rootScope.endDate; 
+
+            }
        
                 
             console.log($scope.fetchUrl);
@@ -387,6 +408,40 @@ myApp.controller('navController', ['$scope', '$rootScope', function ($scope, $ro
             };
       
             $scope.getData();
+        
+        
+        
+        // DatePicker
+        
+        jq("document").ready( function () { 
+            jq('#date-pick .input-group.date').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                clearBtn: true
+                }).on("changeDate", function (e) { 
+                    var ddate = document.getElementById("startDate").value;
+                    $scope.startDate = ddate;
+                    console.log($scope.startDate);
+                
+                
+                });
+                
+            jq('#date-pick-2 .input-group.date').datepicker({
+                format: "yyyy-mm-dd",
+                
+                autoclose: true,
+                clearBtn: true
+                }).on("changeDate", function (e) { 
+                    var dmonth = document.getElementById("endDate").value;
+                    $scope.endDate = dmonth;
+                    console.log($scope.endDate);
+                
+                });                                 
+                                                 
+                
+                
+                
+            });
         
             
 

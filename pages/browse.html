@@ -1,3 +1,198 @@
+<!-- promises -->
+
+
+<!--
+<div class="filter-details" ng-if="filtersOn && promisesList">
+    <a  ng-click="clearFilters()"><i class="fa fa-undo" aria-hidden="true"></i> <span class="clear-filters"> Clear Filters</span></a>
+    
+</div>
+-->
+   
+  
+
+   <div class="form-group row top-filter">
+   <div class="col-md-2">
+       <div class="filter-details" ng-if="filtersOn">
+    <a  ng-click="clearFilters()"><i class="fa fa-undo" aria-hidden="true"></i> <span class="clear-filters"> Clear Filters</span></a>
+    
+</div>
+       
+   </div>
+       
+       
+  
+<div class="col-md-2">
+
+<div class="filterlabel">Filter by due date: </div>
+       </div>
+<div  id="date-pick" class="col-md-2">
+    
+      
+   <div class="input-group date">
+      <input id="startDate" type="text" ng-model="promise.startDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+
+
+<div  id="date-pick-2" class="col-md-2">
+   
+      
+   <div class="input-group date">
+      <input id="endDate" type="text" ng-model="promise.endDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+    
+    <div class="col-md-1">
+        <div><button class="filter-button btn btn-sm btn-info" ng-click="listFilter('date', 'random')">Go</button></div>
+    </div>
+    
+    
+    <div class="col-md-3">
+        
+         <div class="list-pagination">
+<!--       <a href="#!/list/{{listSection}}/{{nextStart}}">Next ({{nextStart}})</a>-->
+       <nav aria-label="...">
+  <ul class="pagination pagination-xs">
+    <li class="page-item" ng-class="prev ? 'enabled' : 'disabled'">
+      <a class="page-link" href="#!/browse/{{prevStart}}" tabindex="-1">Previous</a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" href="#!/browse/{{nextStart}}">Next</a>
+    </li>
+  </ul>
+</nav>
+        
+    </div>
+        
+    </div>
+
+
+</div>
+
+
+<table class="table table-condensed table-striped header-fixed" >
+  <thead class="thead-custom">
+
+    <tr>
+     
+        <th>
+       <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Mayor
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in mayors"><a ng-click="listFilter('mayor', item.id)">{{item.name}}</a></li>
+
+    </ul>
+  </div>    
+        
+
+        </th>
+        
+        <th>
+       <div class="dropdown">
+    <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Party
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in parties | orderBy: 'name'"><a ng-click="listFilter('party', item.id)">{{item.name}}</a></li>
+
+    </ul>
+  </div>    
+        
+
+        </th>
+        
+        <th>
+            <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Municipality
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in municipalities | orderBy: 'municipality'"><a ng-click="listFilter('municipality', item.id)">{{item.municipality}}</a></li>
+
+    </ul>
+  </div>
+       </th>
+        <th class="no-filter">Promise</th>
+        
+        
+        <th>
+        <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Category
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in categories | orderBy: 'category'"><a ng-click="listFilter('category', item.id)">{{item.category}}</a></li>
+
+    </ul>
+  </div>    </th>
+        
+        
+<!--        <th class="no-filter">Date made</th>-->
+        <th class="no-filter">Due date</th>
+        <th class="no-filter">Source</th>
+        <th >
+        <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Tracked
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a ng-click="listFilter('tracked', 'Yes')">Yes</a></li>
+      <li><a ng-click="listFilter('tracked', 'No')">No</a></li>
+
+    </ul>
+  </div>
+       </th>
+        <th >
+         <div class="dropdown">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Result
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+<!--      <li ng-repeat="item in statuses | orderBy: 'status'"><a ng-click="listFilter('status', item.status)">{{item.status}}</a></li>-->
+    <li><a ng-click="listFilter('status', 'Broken')">Broken</a></li>
+    <li><a ng-click="listFilter('status', 'Kept')">Kept</a></li>
+    <li><a ng-click="listFilter('status', 'Keptin part')">Kept in part</a></li>
+    <li><a ng-click="listFilter('status', 'In progress')">In progress</a></li>
+
+    </ul>
+  </div>   
+        
+        </th>
+
+    
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data">
+        <td ng-click="filterList(item.mayor_name)" class="filterable"> {{item.mayor_name}}  </td>
+       <td>{{item.party_name}}</td>
+         <td>{{item.municipality_name}}</td>
+        
+        <td class="promise-td">{{item.promise}}</td>
+        <td>{{item.category_name}}</td>
+<!--        <td>{{item.date_made}}</td>-->
+        <td>{{item.due_date}}</td>
+        <td class="source-icon"><a href="{{item.source}}" target="_new"><i class="fa fa-folder" aria-hidden="true" ng-if="item.source"></i></a></td>
+        <td>{{item.tracked}}</td>
+        <td ng-if="item.status">
+            <a ng-if="item.wp_links > 0" href="http://localhost:8888/trackyourmayor/news/related-promise/?id={{item.id}}">{{item.status}}</a>
+            <span ng-if="item.wp_links == 0">{{item.status}}</span>
+            </td>
+        <td ng-if="!item.status">Untracked</td>
+        
+        
+        
+    </tr>
+    
+    
+    
+  </tbody>
+</table>
+
+
+
+
+
+
 <!--
 <form name="myForm">
  
@@ -15,6 +210,7 @@
 
 
 <!--<div class="listBrowse"  ng-if="view.name=='browseList'">-->
+<!--
    <div class="listBrowse"  >
     
     
@@ -60,4 +256,5 @@
     </div>
     
 </div>
+-->
 

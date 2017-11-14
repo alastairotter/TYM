@@ -1,31 +1,77 @@
 <div class="record-head">
     
        <div class="record-image">
-       <img ng-src={{recordData.stats.mayor_photo}}></div>
+       <img ng-src={{stats.mayor_photo}}></div>
        
        <div class="record-details">
            <div class="name">
-                {{recordData.stats.mayor_name}}
+                {{stats.mayor_name}} &nbsp;  
+               <span class="list-view" ng-if="listType == 'all'">All Promises</span>
+               <span class="list-view" ng-if="listType == 'tracked'">Tracked Promises</span>
+               <span class="list-view" ng-if="listType == 'untracked'">Untracked Promises</span>
             </div>
             <div class="muni">
-                {{recordData.stats.municipality_name}}
+                {{stats.municipality_name}}
             </div>
             <div class="party">
-                {{recordData.stats.party_name}}
+                {{stats.party_name}}
             </div>
             <div class="options">
                 <div class="current">
-                    Listing {{recordData.stats.record_type}} promises ({{recordData.stats.current_record_count}})
+                    Listing {{stats.record_type}} promises ({{stats.current_record_count}})
                 </div>
                 <div class="other-options">
-                    <div class="options-links"><a href="#!/record/{{recordData.stats.mayor_id}}/1/Yes" >All promises ({{recordData.stats.total_promises}})</a> |</div>
-                    <div class="options-links" > <a href="#!/record/{{recordData.stats.mayor_id}}/0/Yes">Tracked promises ({{recordData.stats.tracked_promises}})</a> |</div>
-                    <div class="options-links" > <a href="#!/record/{{recordData.stats.mayor_id}}/0/No">Untracked promises ({{recordData.stats.untracked_promises}})</a></div>
+                    <div class="options-links"><a href="#!/record/{{stats.mayor_id}}/1/Yes" >All promises ({{stats.total_promises}})</a> |</div>
+                    <div class="options-links" > <a href="#!/record/{{stats.mayor_id}}/0/Yes">Tracked promises ({{stats.tracked_promises}})</a> |</div>
+                    <div class="options-links" > <a href="#!/record/{{stats.mayor_id}}/0/No">Untracked promises ({{stats.untracked_promises}})</a></div>
+                    
+                    <div class="filter-details" ng-if="filtersOn">
+    <a  ng-click="clearFilters()"><i class="fa fa-undo" aria-hidden="true"></i> <span class="clear-filters"> Clear Filters</span></a>
+    
+</div>
+              
+              
+              
+               <div class="form-group row date-filter-box">
+
+<div class="col-md-3">
+<label></label>
+<div class="filterlabel">Filter by due date: </div>
+       </div>
+<div  id="date-pick" class="col-md-4">
+    <label>Start Date</label> 
+      
+   <div class="input-group date">
+      <input id="startDate" type="text" ng-model="promise.startDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+
+
+<div  id="date-pick-2" class="col-md-4">
+    <label>End Date</label> 
+      
+   <div class="input-group date">
+      <input id="endDate" type="text" ng-model="promise.endDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+    
+    <div class="col-md-1"><label></label>
+        <div><button class="filter-button btn btn-sm btn-info" ng-click="selectFilter('date', 'random')">Go</button></div>
+    </div>
+
+
+</div>
+              
+              
+               
                 </div>
                 
             </div>
             
     </div>
+<!--
     <div class="record-filter">
     Filter by category: &nbsp; 
     
@@ -35,6 +81,7 @@
         <option ng-repeat="item in cats | orderBy:'cat_name'" value="{{item.category}}">{{item.cat_name}}</option>
     </select>
     </div>
+-->
     <div style="clear: both;"></div>
     
 </div>
@@ -43,11 +90,29 @@
 
     <tr>
      
-      <th class="sortable col-wide" ng-click="listOrder('municipality')">Promise</th>
-      <th class="sortable" ng-click="listOrder('code')">Source</th>
-      <th class="sortable" ng-click="listOrder('province')">Promise date</th>
-      <th class="sortable" ng-click="listOrder('province')">Category</th>
-      <th class="sortable" ng-click="listOrder('province')">Result</th>
+      <th class="promise-head">Promise</th>
+      <th >Source</th>
+      <th >Due Date</th>
+      <th > <div class="dropdown">
+    <button class="btn header btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Category
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in cats | orderBy: 'cat_name'"><a ng-click="selectFilter('category', item.category)">{{item.cat_name}}</a></li>
+
+    </ul>
+  </div></th>
+      <th >
+        
+        <div class="dropdown">
+    <button class="btn header btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Result
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="item in statuses | orderBy: 'status'"><a ng-click="selectFilter('status', item.status)">{{item.status}}</a></li>
+
+    </ul>
+  </div>
+    
+    </th>
      
     </tr>
   </thead>
@@ -55,10 +120,15 @@
 <!--    <tr ng-repeat="item in municipalities  | filter: listFilter | orderBy:sortCol">-->
         <tr ng-repeat="item in recordData">
         <td>{{item.promise}}</td>
-        <td class="source"><a href="{{item.source}}" ng-if="item.source"><i class="fa fa-folder" aria-hidden="true"></i></a></td>
-        <td>{{item.date_made}}</td>
+        <td class="source"><a href="{{item.source}}" target="_new" ng-if="item.source"><i class="fa fa-folder" aria-hidden="true"></i></a></td>
+        <td>{{item.due_date}}</td>
         <td>{{item.category_name}}</td>
-        <td>{{item.status}}</td>
+        <td ng-if="item.status">
+            <a href="http://localhost:8888/trackyourmayor/news/related-promises/?id={{item.id}}" ng-if="item.wp_links>0">{{item.status}}</a>
+            <span ng-if="item.wp_links == 0">{{item.status}}</span>
+<!--            <a href="http://localhost:888/trackyourmayor/news/related-promises/?id={{item.id}}">{{item.status}}</a>-->
+            </td>
+        <td ng-if="!item.status">Untracked</td>
         
          
         

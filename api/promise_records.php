@@ -9,6 +9,7 @@ include("config.php");
 $id = $_GET['id'];
 $all = $_GET['all'];
 $tracked = $_GET['tracked'];
+
 if($_GET['category']) { $category = $_GET['category']; }
 
 
@@ -81,15 +82,42 @@ if($id && $tracked) {
     // end categories
     
     
+    // get statuses 
+    $statuses = array();
+    $sql = "select distinct status from promises";
+    $query = mysqli_query($db, $sql);
+    $promises = array();
+    while($row = mysqli_fetch_assoc($query)) {
+//        if($row['status'] == "") { $row['status'] = "Untracked"; }
+        $row = array_map('utf8_encode', $row);
+        array_push($statuses,$row);
+    }
+    
+    
+    
+    
     
     if($all == "1") { 
         
         if($category) {
-      
-        $sql = "Select * from promises where mayor = '$id' and category = '$category'"; 
+            if($_GET['status']) { 
+                $status = $_GET['status'];
+                $sql = "Select * from promises where mayor = '$id' and category = '$category' and status = '$status'"; 
+            }
+            else { 
+                $sql = "Select * from promises where mayor = '$id' and category = '$category'"; 
+            }
+        
         }
         else { 
-        $sql = "Select * from promises where mayor = '$id'";
+            if($_GET['status']) { 
+                $status = $_GET['status'];
+                $sql = "Select * from promises where mayor = '$id' and status = '$status'";
+            }
+            else { 
+                $sql = "Select * from promises where mayor = '$id'";
+            }
+        
         }
         
     }
@@ -97,12 +125,21 @@ if($id && $tracked) {
     else { 
         
         if($category) { 
+            
         $sql = "Select * from promises where mayor = '$id' and tracked = '$tracked' and category = '$category'";
         }
         else { 
         $sql = "Select * from promises where mayor = '$id' and tracked = '$tracked'";
         }
     
+    }
+    
+    if($_GET['startdate']) { 
+//        echo "There is start date";
+        $startdate = $_GET['startdate'];
+        $enddate = $_GET['enddate'];
+        $sql .= " and due_date > '$startdate' and due_date < '$enddate'";
+//        echo $sql;
     }
 
     $total_promises = 0; 
@@ -113,6 +150,8 @@ if($id && $tracked) {
     $query = mysqli_query($db, $sql);
     $promises = array();
     while($row = mysqli_fetch_assoc($query)) {
+        
+//        var_dump($row);
         
         $total_promises++;
         // get mayor name
@@ -145,6 +184,11 @@ if($id && $tracked) {
         $q = mysqli_fetch_assoc($q);
         $row["municipality_name"] = $q["municipality"];
         $row["municipality_id"] = $muni;
+        // get WP links
+        $q = "select * from wp_postmeta where meta_key = 'related_promise' and meta_value=" . $row['id'];
+        $q = mysqli_query($db, $q);
+        $q = mysqli_num_rows($q);
+        $row["wp_links"] = $q;
         
         
         $results['stats']['mayor_name'] = $row['mayor_name'];
@@ -175,7 +219,7 @@ if($id && $tracked) {
         array_push($results,$row);
     }
     
-
+$results['statuses'] = $statuses;
 $results['stats']['total_promises'] = $promise_count_total; 
 $results['stats']['tracked_promises'] = $promises_tracked; 
 $results['stats']['untracked_promises'] = $promises_untracked; 

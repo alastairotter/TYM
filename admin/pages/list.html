@@ -187,40 +187,54 @@
 
 
 <!-- promises -->
+
+
 <!--
-<div class="row filters">
-
-<select  ng-if="listSection=='promises'" ng-model="mayorFilter" class="form-control form-control-sm col-md-2" ng-change="listFilter('mayor', mayorFilter)" ng-options="item.mayor_name for item in mayors track by item.mayor">
-    <option value=''>Mayor</option>
-</select>
-
-<select  ng-if="listSection=='promises'" ng-model="partyFilter" class="form-control form-control-sm col-md-1" ng-change="listFilter('party', partyFilter)" ng-options="item.party_abbreviation for item in parties track by item.party_id">
-    <option value=''>Party</option>
-</select>
-
-<select  ng-if="listSection=='promises'" ng-model="muniFilter" class="form-control form-control-sm col-md-2" ng-change="listFilter('municipality', muniFilter)" ng-options="item.municipality_name for item in municipalities track by item.municipality">
-   <option value=''>Municipality</option>
-</select>
-
-<select  ng-if="listSection=='promises'" ng-model="catFilter" class="form-control form-control-sm col-md-2" ng-change="listFilter('category', catFilter)" ng-options="cat.category_name for cat in categories track by cat.category">
-    <option value=''>Category</option>
-    <option ng-repeat="item in data.categories" ng-value="{{item.category}}">{{item.category_name}}</option>
-</select>
-
-<select ng-if="listSection=='promises'" ng-model="statusFilter" class="form-control form-control-sm col-md-1" ng-change="listFilter('status', statusFilter)"
-     ng-options="item.status for item in statuses track by item.status">
-     <option value=''>Result</option>
-</select>
-    
-    
-
-
-</div>
--->
-
 <div class="filter-details" ng-if="filtersOn && promisesList">
     <a  ng-click="clearFilters()"><i class="fa fa-undo" aria-hidden="true"></i> <span class="clear-filters"> Clear Filters</span></a>
     
+</div>
+-->
+
+   <div class="form-group row">
+   <div class="col-md-2">
+       <div class="filter-details" ng-if="filtersOn && promisesList">
+    <a  ng-click="clearFilters()"><i class="fa fa-undo" aria-hidden="true"></i> <span class="clear-filters"> Clear Filters</span></a>
+    
+</div>
+       
+   </div>
+       
+       
+  
+<div class="col-md-2">
+<label></label>
+<div class="filterlabel">Filter by due date: </div>
+       </div>
+<div  id="date-pick" class="col-md-2">
+    <label>Start Date</label> 
+      
+   <div class="input-group date">
+      <input id="startDate" type="text" ng-model="promise.startDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+
+
+<div  id="date-pick-2" class="col-md-2">
+    <label>End Date</label> 
+      
+   <div class="input-group date">
+      <input id="endDate" type="text" ng-model="promise.endDate" class="form-control form-control-sm"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+    </div>
+     
+    </div>
+    
+    <div class="col-md-1"><label></label>
+        <div><button class="filter-button btn btn-sm btn-info" ng-click="listFilter('date', 'random')">Go</button></div>
+    </div>
+
+
 </div>
 
 

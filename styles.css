@@ -6,8 +6,54 @@ body {
 /*    background: #efefef;*/
 }
 
+a { 
+    color: #34C3E1;
+}
+
+a:hover { 
+    color: dodgerblue;
+}
+
+
+.nav { 
+    background: #000;
+    width: 100%; 
+    padding: 10px;
+    color: #fff;
+    font-size: 80%;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-bottom: solid 1px #fff;
+    
+    
+    
+}
+
+.nav-content { 
+    margin-left: 50px;
+}
+
+.nav-content a { 
+    color: #ddd;
+    text-decoration: none;
+    margin-right: 30px;
+}
+.nav-content a:hover { 
+    color: #fff;
+}
+
+#main { 
+    margin-bottom: 300px;
+}
+
+
 .main-content { 
 /*    margin-top: 20px;*/
+}
+
+.main-about {
+    
+    margin-top:50px;
 }
 
 .no-search { 
@@ -241,6 +287,9 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
     float: right; 
 }
 
+.records { 
+    margin-bottom: 100px;
+}
 .records .col-wide { 
     width: 50%;
 }
@@ -252,7 +301,7 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
 /*    border-top: solid 1px #000;*/
     border-bottom: solid 1px #000;
 /*    margin-bottom: 20px;*/
-    line-height: 170%;
+    line-height: 190%;
     padding-bottom: 30px;
     
 }
@@ -266,6 +315,7 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
 }
 .record-image img { 
     width: 130px;
+    border: solid 1px black;
 }
 
 .record-details, .record-details-text {
@@ -334,4 +384,86 @@ box-shadow: 0px 1px 29px -5px rgba(0,0,0,0.28);
 
 .icon-links { 
     margin-top: 20px;
+}
+
+.list-view {
+    background: #588c62;
+    padding: 3px 10px;
+    font-size: 80%;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 700;
+    
+}
+
+.btn.header { 
+    color: #000;
+    background: #fff;
+    border: none;
+    font-weight: 700;
+}
+.dropdown-menu li { 
+    font-size:80%;
+    font-weight: 400;
+    padding: 3px 10px;
+}
+.dropdown-menu li:hover { 
+    cursor: pointer; 
+    cursor: hand;
+    }
+
+.promise-head { 
+    width: 40%;
+}
+
+.filter-details { 
+    color: #34C3E1;
+}
+.filter-details:hover { 
+    cursor: pointer;
+    cursor: hand; 
+}
+
+.date-filter-box { 
+    margin-top: 20px;
+    font-size: 90%;
+    
+   
+}
+.date-filter-box button { 
+    margin-top: 10px;
+}
+
+.table-condensed td { 
+    font-size: 90%; 
+}
+
+.dropdown button{ 
+    background:#fff;
+    border: none;
+    color: #000;
+    font-weight:700;
+    
+}
+
+.dropdown button:hover { 
+    background: #fff;
+    color: #000;
+}
+.no-filter { 
+    margin-top: 10px;
+}
+.top-filter { 
+    margin-top: 40px;
+}
+
+.promise-td { 
+    max-width: 300px;
+}
+.list-pagination { 
+    float: right;
+    font-size: 80%;
+}
+.list-pagination a { 
+    color: #34C3E1;
 }

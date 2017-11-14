@@ -294,10 +294,36 @@ switch ($section) {
                 $w = $w . " AND promises.party = '$party' "; $clauses++;   }
         }
         
+        if($_GET['startdate']) {
+            $startdate = $_GET['startdate'];
+            
+            if($clauses == 0) { 
+                $w = $w .  "WHERE promises.due_date > '$startdate' "; $clauses++;   }
+            
+            else { 
+                $w = $w . " AND promises.due_date > '$startdate' "; $clauses++;   }
+        }
+        
+        if($_GET['enddate']) {
+            $enddate = $_GET['enddate'];
+            
+            if($clauses == 0) { 
+                $w = $w .  "WHERE promises.due_date < '$enddate' "; $clauses++;   }
+            
+            else { 
+                $w = $w . " AND promises.due_date < '$enddate' "; $clauses++;   }
+        }
+        
 
 //SELECT promises.*, mayors.name from promises LEFT JOIN mayors on promises.mayor = mayors.id WHERE promises.mayor = 25
         
-        $sql = "Select promises.*, mayors.name from promises LEFT JOIN mayors on promises.mayor = mayors.id " . $w . " order by mayors.name limit $start, $count";
+       if($_GET['startdate']) { 
+        $sql = "Select promises.*, mayors.name from promises LEFT JOIN mayors on promises.mayor = mayors.id " . $w . " order by promises.due_date desc limit $start, $count";
+       }
+        
+        else { 
+            $sql = "Select promises.*, mayors.name from promises LEFT JOIN mayors on promises.mayor = mayors.id " . $w . " order by mayors.name limit $start, $count";
+        }
         
     
             $query = mysqli_query($db, $sql);
